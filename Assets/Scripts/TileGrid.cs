@@ -82,7 +82,6 @@ public class TileGrid : MonoBehaviour
 
         if (tileGrid[row, col].TryGetComponent<Tile>(out Tile componentTile))
         {
-            Debug.Log($"{componentTile.GetTileType()} is the tile type of componenttile");
             if (componentTile.GetTileType() == Tile.TileType.neutral)
             {
                 componentTile.SetTileType(type);
