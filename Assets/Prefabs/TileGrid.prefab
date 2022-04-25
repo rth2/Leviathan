@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1680283592062992708}
   - component: {fileID: 506948338186731602}
+  - component: {fileID: 5781374401776490466}
   m_Layer: 0
   m_Name: TileGrid
   m_TagString: Untagged
@@ -49,6 +50,20 @@ MonoBehaviour:
   maxCols: 19
   tile: {fileID: 4815888597176206965, guid: 2c6ce4b5b9fc4dc41b2c287b2a41a2a8, type: 3}
   tileCache: {fileID: 5681548364977342076}
+  tileTracker: {fileID: 5781374401776490466}
+--- !u!114 &5781374401776490466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056775412626314717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileList: []
 --- !u!1 &5681548364977342076
 GameObject:
   m_ObjectHideFlags: 0

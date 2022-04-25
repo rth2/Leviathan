@@ -7,22 +7,22 @@ public class ClassicCreateFood : MonoBehaviour
     Tile.TileType food = Tile.TileType.food;
 
     [SerializeField] TileGrid grid = null;
+    [SerializeField] TileTracker tileTracker = null;
 
-    private void Update()
+
+    public void PlaceFood()
     {
-        PlaceFood();
+        if(tileTracker == null) { return; }
+        if(tileTracker.GetCount() == 0) { return; }
+
+        int min = 0;
+        int max = tileTracker.GetCount();
+
+        int randomInt = Random.Range(min, max);
+
+        tileTracker.ChangeTileInList(randomInt, food);
         
     }
 
-    private void PlaceFood()
-    {
-        if (grid == null) return;
-
-        int randomRow = Random.Range(1, grid.GetMaxRows() + 1);
-        int randomCol = Random.Range(1, grid.GetMaxCols() + 1);
-
-        grid.ChangeTileType(randomRow, randomCol, food);
-
-    }
 
 }

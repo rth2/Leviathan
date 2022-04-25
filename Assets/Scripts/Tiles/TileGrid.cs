@@ -8,6 +8,8 @@ public class TileGrid : MonoBehaviour
     [SerializeField] int maxRows = 25, maxCols = 19;
     [SerializeField] GameObject tile = null;
     [SerializeField] GameObject tileCache = null;
+    [SerializeField] TileTracker tileTracker = null;
+    [SerializeField] Critter critter = null;
 
     GameObject[,] tileGrid; //accessor for tiles
 
@@ -18,6 +20,23 @@ public class TileGrid : MonoBehaviour
     private void Start()
     {
         BuildTileGrid();
+        PlaceCritterOnGrid();
+    }
+
+    /// <summary>
+    /// Places the chosen critter on the tileGrid at the beginning of the game.
+    /// </summary>
+    private void PlaceCritterOnGrid()
+    {
+        if(critter == null) { return; }
+
+        int startingRow = Mathf.FloorToInt(maxRows * 0.5f);
+        int startingCol = Mathf.FloorToInt(maxCols * 0.5f);
+
+        for (int i = 0; i < critter.GetLength(); i++)
+        {
+            ChangeTileType(startingRow + i, startingCol, Tile.TileType.snake);
+        }
     }
 
     public int GetMaxRows()
@@ -61,6 +80,10 @@ public class TileGrid : MonoBehaviour
                     else
                     {   //every other tile starts neutral
                         componentTile.SetTileType(Tile.TileType.neutral);
+                        if(tileTracker != null)
+                        {
+                            tileTracker.AddTileToList(componentTile);
+                        }
                     }
                 }
             }
@@ -77,14 +100,20 @@ public class TileGrid : MonoBehaviour
     {
         if(tileGrid == null) { return; }
 
-        if(row <= 0 || row >= maxRows + boundaryTiles) { Debug.Log($"rows out of range."); return; }
-        if(col <= 0 || col >= maxCols + boundaryTiles) { Debug.Log($"cols out of range."); return; }
+        if(row <= 0 || row >= maxRows + boundaryTiles) { return; }
+        if(col <= 0 || col >= maxCols + boundaryTiles) { return; }
 
         if (tileGrid[row, col].TryGetComponent<Tile>(out Tile componentTile))
         {
-            if (componentTile.GetTileType() == Tile.TileType.neutral)
+            componentTile.SetTileType(type);
+
+            if (type == Tile.TileType.neutral)
             {
-                componentTile.SetTileType(type);
+                tileTracker.AddTileToList(componentTile);
+            }
+            else
+            {
+                tileTracker.RemoveTileFromList(componentTile);
             }
         }
     }

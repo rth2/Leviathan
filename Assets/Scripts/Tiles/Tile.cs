@@ -8,11 +8,13 @@ public class Tile : MonoBehaviour
     {
         neutral = 0,
         food = 1,
-        wall = 2
+        wall = 2,
+        snake = 3
     };
 
     [SerializeField] TileType tileType;
-    [SerializeField] Color neutralColor, foodColor, wallColor = new Color();
+    [SerializeField] Color neutralColor, foodColor, wallColor, snakeColor = new Color();
+    //[SerializeField] TileTracker tileTracker = null;
 
 
     SpriteRenderer sr = null;
@@ -62,6 +64,11 @@ public class Tile : MonoBehaviour
             case TileType.wall:
                 {
                     sr.color = wallColor;
+                    break;
+                }
+            case TileType.snake:
+                {
+                    sr.color = snakeColor;
                     break;
                 }
             default:

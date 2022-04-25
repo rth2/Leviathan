@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 782929981137674631, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+      propertyPath: snakeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 782929981137674631, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+      propertyPath: snakeColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 782929981137674631, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+      propertyPath: snakeColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 782929981137674631, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+      propertyPath: snakeColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7297515287426722638, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8092143414092079482, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
       propertyPath: m_Name
-      value: Tile
+      value: Tile_Classic
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
