@@ -17,4 +17,9 @@ public class Critter : MonoBehaviour
         return curLength;
     }
 
+    public Vector3 GetDirection()
+    {
+        return critterDirection;
+    }
+
 }

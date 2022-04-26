@@ -14,8 +14,6 @@ public class Tile : MonoBehaviour
 
     [SerializeField] TileType tileType;
     [SerializeField] Color neutralColor, foodColor, wallColor, snakeColor = new Color();
-    //[SerializeField] TileTracker tileTracker = null;
-
 
     SpriteRenderer sr = null;
 
@@ -38,9 +36,9 @@ public class Tile : MonoBehaviour
     /// Set the type of the tile from TileType enum. 
     /// </summary>
     /// <param name="type"> The type of the tile you wish to set.</param>
-    public void SetTileType(TileType type)
+    public void SetTileType(TileType newType)
     {
-        tileType = type;
+        tileType = newType;
         ChangeColor();
     }
 

@@ -10,6 +10,7 @@ public class TileGrid : MonoBehaviour
     [SerializeField] GameObject tileCache = null;
     [SerializeField] TileTracker tileTracker = null;
     [SerializeField] Critter critter = null;
+    [SerializeField] ClassicCreateFood foodCreator = null;
 
     GameObject[,] tileGrid; //accessor for tiles
 
@@ -21,6 +22,12 @@ public class TileGrid : MonoBehaviour
     {
         BuildTileGrid();
         PlaceCritterOnGrid();
+        PlaceInitialFood();
+    }
+
+    private void PlaceInitialFood()
+    {
+        foodCreator.PlaceFood();
     }
 
     /// <summary>
@@ -76,6 +83,7 @@ public class TileGrid : MonoBehaviour
                     if (i == 0 || i == rowAmount - 1 || j == 0 || j == colAmount - 1)
                     {
                         componentTile.SetTileType(Tile.TileType.wall);
+                        tileTracker.AddTileToList(componentTile);
                     }
                     else
                     {   //every other tile starts neutral

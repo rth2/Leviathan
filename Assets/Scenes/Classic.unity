@@ -251,7 +251,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9576431cafc268541904ac13ead39e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curLength: 2
+  curLength: 1
+  critterDirection: {x: 0, y: 0, z: 0}
+--- !u!1 &1973729162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1973729164}
+  - component: {fileID: 1973729163}
+  m_Layer: 0
+  m_Name: TileTracker
+  m_TagString: TileTracker
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1973729163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973729162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neutral: {fileID: 0}
+  snake: {fileID: 0}
+  food: {fileID: 0}
+  wall: {fileID: 0}
+--- !u!4 &1973729164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973729162}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3494040180459302936}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057068056
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1163cc24a29b264ca8fa42c3c6af403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 3494040180459302934}
-  tileTracker: {fileID: 3494040180459302935}
+  tileTracker: {fileID: 1973729163}
 --- !u!4 &2057068058
 Transform:
   m_ObjectHideFlags: 0
@@ -309,6 +357,14 @@ PrefabInstance:
       propertyPath: critter
       value: 
       objectReference: {fileID: 777844056}
+    - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+      propertyPath: foodCreator
+      value: 
+      objectReference: {fileID: 2057068057}
+    - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+      propertyPath: tileTracker
+      value: 
+      objectReference: {fileID: 1973729163}
     - target: {fileID: 1680283592062992708, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -357,27 +413,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileGrid
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5781374401776490466, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
---- !u!114 &3494040180459302934 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+--- !u!4 &3494040180459302936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1680283592062992708, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
   m_PrefabInstance: {fileID: 3494040180459302932}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83885d6005282f647b48788477486bc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3494040180459302935 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5781374401776490466, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
-  m_PrefabInstance: {fileID: 3494040180459302932}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
