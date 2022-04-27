@@ -36,16 +36,36 @@ public class TileList : MonoBehaviour
 
     public void AddTileToList(Tile tile)
     {
-        if(tile.GetTileType() != tileType) { return; }
+        Tile.TileType type = tile.GetTileType();
 
-        tileList.Add(tile);
+        if(type != tileType) { return; }
+
+        if(type == Tile.TileType.critter)
+        {
+            tileList.Insert(0, tile);
+        }
+        else
+        {
+            tileList.Add(tile);
+        }
     }
 
     public void RemoveTileFromList(Tile tile)
     {
-        if (tile.GetTileType() != tileType) { return; }
+        Tile.TileType type = tile.GetTileType();
 
-        tileList.Remove(tile);
+        if (type != tileType) { return; }
+
+        if(type == Tile.TileType.critter)
+        {
+            tileList.RemoveAt(tileList.Count - 1);
+        }
+        else
+        {
+            tileList.Remove(tile);
+        }
+
+        
     }
 
     /// <summary>

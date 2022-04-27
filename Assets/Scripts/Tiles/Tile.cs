@@ -9,11 +9,13 @@ public class Tile : MonoBehaviour
         neutral = 0,
         food = 1,
         wall = 2,
-        snake = 3
+        critter = 3
     };
 
     [SerializeField] TileType tileType;
-    [SerializeField] Color neutralColor, foodColor, wallColor, snakeColor = new Color();
+    [SerializeField] Color neutralColor, foodColor, wallColor, critterColor = new Color();
+
+    [SerializeField] Vector2 posOnBoard = new Vector2();
 
     SpriteRenderer sr = null;
 
@@ -32,6 +34,17 @@ public class Tile : MonoBehaviour
         return tileType;
     }
 
+    public void SetTilePosition(int xPos, int yPos)
+    {
+        posOnBoard.x = xPos;
+        posOnBoard.y = yPos;
+    }
+
+    public Vector2 GetTilePosition()
+    {
+        return posOnBoard;
+    }
+
     /// <summary>
     /// Set the type of the tile from TileType enum. 
     /// </summary>
@@ -42,7 +55,10 @@ public class Tile : MonoBehaviour
         ChangeColor();
     }
 
-
+    /// <summary>
+    /// Changes the color of the tile based on the list it is in.
+    /// Default color is purple.
+    /// </summary>
     private void ChangeColor()
     {
         if (sr == null) return;
@@ -64,14 +80,14 @@ public class Tile : MonoBehaviour
                     sr.color = wallColor;
                     break;
                 }
-            case TileType.snake:
+            case TileType.critter:
                 {
-                    sr.color = snakeColor;
+                    sr.color = critterColor;
                     break;
                 }
             default:
                 {
-                    sr.color = new Color(0,0,0);
+                    sr.color = new Color(1,0,1,1);
                     break;
                 }
         }

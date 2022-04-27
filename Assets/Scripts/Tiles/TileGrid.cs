@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class TileGrid : MonoBehaviour
 {
-    [SerializeField] int maxRows = 25, maxCols = 19;
+
+    [Header("Tile Grid Attributes")]
     [SerializeField] GameObject tile = null;
+    [SerializeField] int maxRows = 25, maxCols = 19;
     [SerializeField] GameObject tileCache = null;
     [SerializeField] TileTracker tileTracker = null;
+
+    [Header("Objects on Grid")]
     [SerializeField] Critter critter = null;
-    [SerializeField] ClassicCreateFood foodCreator = null;
+    [SerializeField] ClassicCreateFood obstacleCreator = null;
 
-    GameObject[,] tileGrid; //accessor for tiles
+    GameObject[,] tileGrid;     //accessor for tiles
 
-    float tileOffset = 0.5f;
-    int boundaryTiles = 2;  //boundary wall for the tileGrid. One on each side of X; one on each side of Y.
+    float tileOffset = 0.5f;    //tiles should be 1 unity unit. This offsets the tile to match the unity grid on whole integers.
+    int boundaryTiles = 2;      //boundary wall for the tileGrid. One on each side of X; one on each side of Y.
 
 
     private void Start()
@@ -27,11 +31,12 @@ public class TileGrid : MonoBehaviour
 
     private void PlaceInitialFood()
     {
-        foodCreator.PlaceFood();
+        obstacleCreator.PlaceFood();
     }
 
     /// <summary>
-    /// Places the chosen critter on the tileGrid at the beginning of the game.
+    /// Places critter(player) on grid center. Builds to right if critter is
+    /// longer than 1.
     /// </summary>
     private void PlaceCritterOnGrid()
     {
@@ -39,21 +44,30 @@ public class TileGrid : MonoBehaviour
 
         int startingRow = Mathf.FloorToInt(maxRows * 0.5f);
         int startingCol = Mathf.FloorToInt(maxCols * 0.5f);
+        int critterLength = critter.GetLength();
 
-        for (int i = 0; i < critter.GetLength(); i++)
+        for (int i = 0; i < critterLength; i++)
         {
-            ChangeTileType(startingRow + i, startingCol, Tile.TileType.snake);
+            ChangeTileType(startingRow + i, startingCol, Tile.TileType.critter);
         }
     }
 
-    public int GetMaxRows()
+    /// <summary>
+    /// Checks to see if the tile is in a valid index on the Grid. If yes, it returns the tile.
+    /// Otherwise it returns a null tile.
+    /// </summary>
+    /// <param name="row">Row of the tile you want. X coord.</param>
+    /// <param name="col">Col of the tile you want. Y coord.</param>
+    /// <returns>The requested Tile. Null if out of bounds.</returns>
+    public Tile GetTileFromTileGrid(int row, int col)
     {
-        return maxRows;
-    }
+        Tile tile = null;
+        
+        if (tileGrid == null) {  return tile; }
+        if (row < 0 || row >= maxRows + boundaryTiles) {  return tile; }
+        if (col < 0 || col >= maxCols + boundaryTiles) {  return tile; }
 
-    public int GetMaxCols()
-    {
-        return maxCols;
+        return tileGrid[row, col].GetComponent<Tile>();
     }
 
     /// <summary>
@@ -99,7 +113,7 @@ public class TileGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Change the type of a Tile on the grid in [row, col].
     /// </summary>
     /// <param name="row">Row to check if we can change.</param>
     /// <param name="col">Column to check if we can change.</param>
@@ -108,22 +122,15 @@ public class TileGrid : MonoBehaviour
     {
         if(tileGrid == null) { return; }
 
-        if(row <= 0 || row >= maxRows + boundaryTiles) { return; }
-        if(col <= 0 || col >= maxCols + boundaryTiles) { return; }
+        Tile tileToChange = GetTileFromTileGrid(row, col);
 
-        if (tileGrid[row, col].TryGetComponent<Tile>(out Tile componentTile))
-        {
-            componentTile.SetTileType(type);
+        if(tileToChange == null) { return; }
+        if(tileToChange.GetTileType() == type) { return; }
+        if(tileTracker == null) { return; }
 
-            if (type == Tile.TileType.neutral)
-            {
-                tileTracker.AddTileToList(componentTile);
-            }
-            else
-            {
-                tileTracker.RemoveTileFromList(componentTile);
-            }
-        }
+        tileTracker.RemoveTileFromList(tileToChange);
+        tileToChange.SetTileType(type);
+        tileTracker.AddTileToList(tileToChange);
     }
 
 }

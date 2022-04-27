@@ -5,25 +5,21 @@ using UnityEngine;
 public class CritterMovement : MonoBehaviour
 {
     [SerializeField] private Critter critter = null;
-
-    private int x = 0;
+    [SerializeField] private GameLoop gameLoop = null;
 
     private void Start()
     {
-        StartCoroutine(Movement());
+        if (gameLoop == null) { return; }
+
+        gameLoop.OnNewTickCycle += Movement;
     }
 
-    IEnumerator Movement()
+    private void Movement()
     {
-        
+        if (critter == null) { return; }
 
-        while(true)
-        {
-            if (critter == null) yield return new WaitForSeconds(1.0f);
-
-            transform.position += critter.GetDirection();
-            yield return new WaitForSeconds(1.0f);
-        }
-        
+        //transform.position += critter.GetDirection();
+        //Debug.Log($"{transform.position}");
+ 
     }
 }

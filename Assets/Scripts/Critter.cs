@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,12 @@ using UnityEngine;
 public class Critter : MonoBehaviour
 {
     [SerializeField] private int curLength = 2;
-    [SerializeField] private Vector3 critterDirection = new Vector3();
+    [SerializeField] private Vector2 critterDirection = new Vector2();
+    
 
     private void Awake()
     {
-        critterDirection = Vector3.left;
+        critterDirection = Vector2.left;
     }
 
     public int GetLength()
@@ -17,7 +19,7 @@ public class Critter : MonoBehaviour
         return curLength;
     }
 
-    public Vector3 GetDirection()
+    public Vector2 GetDirection()
     {
         return critterDirection;
     }

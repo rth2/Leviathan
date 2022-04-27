@@ -5,33 +5,24 @@ using UnityEngine;
 
 public class TileTracker : MonoBehaviour
 {
-    [SerializeField]TileList neutral, snake, food, wall;
+    [SerializeField]TileList neutral, critter, food, wall;
 
     private void Awake()
     {
         neutral = new TileList();
-        snake = new TileList();
+        critter = new TileList();
         food = new TileList();
         wall = new TileList();
 
         neutral.SetTileTracker();
-        snake.SetTileTracker();
+        critter.SetTileTracker();
         food.SetTileTracker();
         wall.SetTileTracker();
 
         neutral.SetTileType(Tile.TileType.neutral);
-        snake.SetTileType(Tile.TileType.snake);
+        critter.SetTileType(Tile.TileType.critter);
         food.SetTileType(Tile.TileType.food);
         wall.SetTileType(Tile.TileType.wall);
-
-    }
-
-    public void PrintCounts()
-    {
-        Debug.Log($"Size of neutral :{neutral.GetCount()}");
-        Debug.Log($"Size of snake :{snake.GetCount()}");
-        Debug.Log($"Size of food :{food.GetCount()}");
-        Debug.Log($"Size of wall :{wall.GetCount()}");
     }
 
     public void AddTileToList( Tile tile)
@@ -40,8 +31,8 @@ public class TileTracker : MonoBehaviour
             case Tile.TileType.neutral:
                 neutral.AddTileToList(tile);
                 break;
-            case Tile.TileType.snake:
-                snake.AddTileToList(tile);
+            case Tile.TileType.critter:
+                critter.AddTileToList(tile);
                 break;
             case Tile.TileType.food:
                 food.AddTileToList(tile);
@@ -61,8 +52,8 @@ public class TileTracker : MonoBehaviour
             case Tile.TileType.neutral:
                 neutral.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.snake:
-                snake.RemoveTileFromList(tile);
+            case Tile.TileType.critter:
+                critter.RemoveTileFromList(tile);
                 break;
             case Tile.TileType.food:
                 food.RemoveTileFromList(tile);
@@ -74,7 +65,6 @@ public class TileTracker : MonoBehaviour
                 break;
         }
     }
-
     /// <summary>
     /// Puts an object on a random free space on the grid.
     /// Does this by checking the neutral list, and changing a random tile.
