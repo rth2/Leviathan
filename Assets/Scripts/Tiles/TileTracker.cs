@@ -5,40 +5,102 @@ using UnityEngine;
 
 public class TileTracker : MonoBehaviour
 {
-    [SerializeField]TileList neutral, critter, food, wall;
+    [SerializeField] TileGrid tileGrid = null;
+    [SerializeField] GameLoop gameLoop = null;
+    [SerializeField] Critter critter = null;
 
+
+    TileList neutralList, critterList, foodList, wallList;
+    
+
+    /// <summary>
+    /// Sets up the different lists of tiles.
+    /// </summary>
     private void Awake()
     {
-        neutral = new TileList();
-        critter = new TileList();
-        food = new TileList();
-        wall = new TileList();
+        neutralList = new TileList();
+        critterList = new TileList();
+        foodList = new TileList();
+        wallList = new TileList();
 
-        neutral.SetTileTracker();
-        critter.SetTileTracker();
-        food.SetTileTracker();
-        wall.SetTileTracker();
+        neutralList.SetTileTracker();
+        critterList.SetTileTracker();
+        foodList.SetTileTracker();
+        wallList.SetTileTracker();
 
-        neutral.SetTileType(Tile.TileType.neutral);
-        critter.SetTileType(Tile.TileType.critter);
-        food.SetTileType(Tile.TileType.food);
-        wall.SetTileType(Tile.TileType.wall);
+        neutralList.SetTileType(Tile.TileType.neutral);
+        critterList.SetTileType(Tile.TileType.critter);
+        foodList.SetTileType(Tile.TileType.food);
+        wallList.SetTileType(Tile.TileType.wall);
+    }
+
+    private void Start()
+    {
+        if (gameLoop == null) { return; }
+
+        gameLoop.OnNewTickCycle += MoveCritter;
+    }
+
+    public void MoveCritter()
+    {
+        if(tileGrid == null) { return; }
+        if(critter == null) { return; }
+
+        Tile critterHead = GetTileFromList(0, critterList);
+
+        Vector2 critterHeadIndex = critterHead.GetTileIndex();
+        Vector2 directionToMove = critter.GetDirection();
+
+        int newCritterHeadIndexX = Mathf.FloorToInt(critterHeadIndex.x + directionToMove.x);
+        int newCritterHeadIndexY = Mathf.FloorToInt(critterHeadIndex.y + directionToMove.y);
+
+        Tile newCritterHead = tileGrid.GetTileFromTileGrid(newCritterHeadIndexX, newCritterHeadIndexY);
+        if (newCritterHead == null) { return; }
+
+        if (newCritterHead.GetTileType() == Tile.TileType.neutral)
+        {
+            Tile oldCritterTail = GetTileFromList(critterList.GetCount() - 1, critterList);
+            if (oldCritterTail == null) { return; }
+            Vector2 critterTailIndex = oldCritterTail.GetTileIndex();
+
+            int critterTailIndexX = Mathf.FloorToInt(critterTailIndex.x);
+            int critterTailIndexY = Mathf.FloorToInt(critterTailIndex.y);
+
+            tileGrid.ChangeTileType(critterTailIndexX, critterTailIndexY, Tile.TileType.neutral);
+            tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+        }
+        else if(newCritterHead.GetTileType() == Tile.TileType.food)
+        {
+            tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+            //ate a piece of food so grow and make another food.
+            critter.AddLength(1);
+            if(foodList.GetCount() == 0)
+            {
+                tileGrid.PlaceFoodOnGrid();
+            }
+            
+        }   
+        else  //all that are left are walls and snakes
+        {
+            //time to die
+        }
+
     }
 
     public void AddTileToList( Tile tile)
     {
         switch (tile.GetTileType()){
             case Tile.TileType.neutral:
-                neutral.AddTileToList(tile);
+                neutralList.AddTileToList(tile);
                 break;
             case Tile.TileType.critter:
-                critter.AddTileToList(tile);
+                critterList.AddTileToList(tile);
                 break;
             case Tile.TileType.food:
-                food.AddTileToList(tile);
+                foodList.AddTileToList(tile);
                 break;
             case Tile.TileType.wall:
-                wall.AddTileToList(tile);
+                wallList.AddTileToList(tile);
                 break;
             default:
                 break;
@@ -50,21 +112,22 @@ public class TileTracker : MonoBehaviour
         switch (tile.GetTileType())
         {
             case Tile.TileType.neutral:
-                neutral.RemoveTileFromList(tile);
+                neutralList.RemoveTileFromList(tile);
                 break;
             case Tile.TileType.critter:
-                critter.RemoveTileFromList(tile);
+                critterList.RemoveTileFromList(tile);
                 break;
             case Tile.TileType.food:
-                food.RemoveTileFromList(tile);
+                foodList.RemoveTileFromList(tile);
                 break;
             case Tile.TileType.wall:
-                wall.RemoveTileFromList(tile);
+                wallList.RemoveTileFromList(tile);
                 break;
             default:
                 break;
         }
     }
+
     /// <summary>
     /// Puts an object on a random free space on the grid.
     /// Does this by checking the neutral list, and changing a random tile.
@@ -72,19 +135,20 @@ public class TileTracker : MonoBehaviour
     /// <param name="typeToPlace">Type of object I want on the grid.</param>
     public void PlaceObjectRandomlyOnGrid(Tile.TileType typeToPlace)
     {
-        if(neutral.GetCount() == 0) { return; } //no free spaces
+        if(neutralList.GetCount() == 0) { return; } //no free spaces
 
         int min = 0;
-        int max = neutral.GetCount();
+        int max = neutralList.GetCount();
         int randomInt = UnityEngine.Random.Range(min, max);
 
-        Tile newTile = GetTileFromList(randomInt, neutral);
+        Tile newTile = GetTileFromList(randomInt, neutralList);
 
-        neutral.ChangeTileInList(randomInt, typeToPlace);
+        neutralList.ChangeTileInList(randomInt, typeToPlace);
     }
 
     public Tile GetTileFromList( int index, TileList tileList)
     {
+        //getTile checks for in bounds.
         return tileList.GetTile(index);
     }
 }

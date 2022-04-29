@@ -207,6 +207,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &547661506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547661508}
+  - component: {fileID: 547661507}
+  - component: {fileID: 547661509}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &547661507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547661506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: db3decc75fb6ad74488abf2a57611ebd, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &547661508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547661506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &547661509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547661506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45bef6fd6d7db140b1b499d6c2b91bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  critter: {fileID: 777844056}
 --- !u!1 &777844054
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 777844055}
   - component: {fileID: 777844056}
-  - component: {fileID: 777844057}
   m_Layer: 0
   m_Name: critter
   m_TagString: Player
@@ -253,21 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curLength: 1
-  critterDirection: {x: 0, y: 0, z: 0}
---- !u!114 &777844057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777844054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf5f22c8857efb4280cdcb5bff26c93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  critter: {fileID: 777844056}
-  gameLoop: {fileID: 1645084678}
+  currentDirection: {x: 0, y: 0}
 --- !u!1 &1645084676
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30534187cedadd84791a73ca89253a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickSpeed: 1
+  tickSpeed: 0.1
 --- !u!1 &1973729162
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,10 +403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neutral: {fileID: 0}
-  snake: {fileID: 0}
-  food: {fileID: 0}
-  wall: {fileID: 0}
+  tileGrid: {fileID: 3494040180459302937}
+  gameLoop: {fileID: 1645084678}
+  critter: {fileID: 777844056}
 --- !u!4 &1973729164
 Transform:
   m_ObjectHideFlags: 0
@@ -485,3 +545,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1680283592062992708, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
   m_PrefabInstance: {fileID: 3494040180459302932}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3494040180459302937 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+  m_PrefabInstance: {fileID: 3494040180459302932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83885d6005282f647b48788477486bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

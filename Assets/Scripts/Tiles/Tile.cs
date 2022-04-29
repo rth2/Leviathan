@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour
     [SerializeField] Color neutralColor, foodColor, wallColor, critterColor = new Color();
 
     [SerializeField] Vector2 posOnBoard = new Vector2();
+    [SerializeField] Vector2 indexOnBoard = new Vector2();
 
     SpriteRenderer sr = null;
 
@@ -38,6 +39,17 @@ public class Tile : MonoBehaviour
     {
         posOnBoard.x = xPos;
         posOnBoard.y = yPos;
+    }
+
+    public void SetTileIndex(int row, int col)
+    {
+        indexOnBoard.x = row;
+        indexOnBoard.y = col;
+    }
+
+    public Vector2 GetTileIndex()
+    {
+        return indexOnBoard;
     }
 
     public Vector2 GetTilePosition()

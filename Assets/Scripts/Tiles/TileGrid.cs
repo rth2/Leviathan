@@ -26,17 +26,21 @@ public class TileGrid : MonoBehaviour
     {
         BuildTileGrid();
         PlaceCritterOnGrid();
-        PlaceInitialFood();
+        PlaceFoodOnGrid();
     }
 
-    private void PlaceInitialFood()
+    /// <summary>
+    /// Places the first food on the Grid.
+    /// </summary>
+    public void PlaceFoodOnGrid()
     {
         obstacleCreator.PlaceFood();
     }
 
     /// <summary>
-    /// Places critter(player) on grid center. Builds to right if critter is
-    /// longer than 1.
+    /// Places critter(player) on grid center at beginning of game.
+    /// Builds to right if critter is longer than 1.
+    /// Critter Head will be on the left to match starting direction.
     /// </summary>
     private void PlaceCritterOnGrid()
     {
@@ -48,7 +52,7 @@ public class TileGrid : MonoBehaviour
 
         for (int i = 0; i < critterLength; i++)
         {
-            ChangeTileType(startingRow + i, startingCol, Tile.TileType.critter);
+            ChangeTileType(startingRow - i, startingCol, Tile.TileType.critter);
         }
     }
 
@@ -63,11 +67,15 @@ public class TileGrid : MonoBehaviour
     {
         Tile tile = null;
         
+        //having issue where grid is 0,0 at corner but pos is 0,0 at center.
+        //need to set my actual row/col when tiles are first made and store those.
+
         if (tileGrid == null) {  return tile; }
         if (row < 0 || row >= maxRows + boundaryTiles) {  return tile; }
         if (col < 0 || col >= maxCols + boundaryTiles) {  return tile; }
 
-        return tileGrid[row, col].GetComponent<Tile>();
+        tile = tileGrid[row, col].GetComponent<Tile>();
+        return tile;
     }
 
     /// <summary>
@@ -107,6 +115,9 @@ public class TileGrid : MonoBehaviour
                             tileTracker.AddTileToList(componentTile);
                         }
                     }
+
+                    componentTile.SetTilePosition(Mathf.FloorToInt(tileToPlacePos.x), Mathf.FloorToInt(tileToPlacePos.y));
+                    componentTile.SetTileIndex(i,j);
                 }
             }
         }
