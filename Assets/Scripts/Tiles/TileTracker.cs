@@ -8,6 +8,7 @@ public class TileTracker : MonoBehaviour
     [SerializeField] TileGrid tileGrid = null;
     [SerializeField] GameLoop gameLoop = null;
     [SerializeField] Critter critter = null;
+    [SerializeField] SceneHandler sceneHandler = null;
 
 
     TileList neutralList, critterList, foodList, wallList;
@@ -82,7 +83,7 @@ public class TileTracker : MonoBehaviour
         }   
         else  //all that are left are walls and snakes
         {
-            //time to die
+            sceneHandler.HandleDeath();
         }
 
     }
@@ -119,6 +120,10 @@ public class TileTracker : MonoBehaviour
                 break;
             case Tile.TileType.food:
                 foodList.RemoveTileFromList(tile);
+                if (neutralList.GetCount() == 0 && foodList.GetCount() == 0)
+                {
+                    sceneHandler.HandleVictory();
+                }
                 break;
             case Tile.TileType.wall:
                 wallList.RemoveTileFromList(tile);
@@ -151,4 +156,5 @@ public class TileTracker : MonoBehaviour
         //getTile checks for in bounds.
         return tileList.GetTile(index);
     }
+
 }

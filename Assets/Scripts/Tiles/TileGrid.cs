@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
 
 public class TileGrid : MonoBehaviour
 {
@@ -12,9 +14,14 @@ public class TileGrid : MonoBehaviour
     [SerializeField] GameObject tileCache = null;
     [SerializeField] TileTracker tileTracker = null;
 
+    GameObject leftBoundary, rightBoundary, topBoundary, botBoundary;
+
     [Header("Objects on Grid")]
     [SerializeField] Critter critter = null;
     [SerializeField] ClassicCreateFood obstacleCreator = null;
+
+    [Header("Camera for Grid Bounds")]
+    [SerializeField] Cinemachine.CinemachineTargetGroup cinemachineTargetGroup = null;
 
     GameObject[,] tileGrid;     //accessor for tiles
 
@@ -24,9 +31,47 @@ public class TileGrid : MonoBehaviour
 
     private void Start()
     {
+        BuildBoundaryObjects();
         BuildTileGrid();
+        SetGameCameraBoundaries();
         PlaceCritterOnGrid();
         PlaceFoodOnGrid();
+    }
+
+    /// <summary>
+    /// Creates, names, and places the boundary objects to be used in the Cinemachine target group.
+    /// </summary>
+    private void BuildBoundaryObjects()
+    {
+        leftBoundary = new GameObject();
+        leftBoundary.name = "leftBoundary";
+        rightBoundary = new GameObject();
+        rightBoundary.name = "rightBoundary";
+        topBoundary = new GameObject();
+        topBoundary.name = "topBoundary";
+        botBoundary = new GameObject();
+        botBoundary.name = "botBoundary";
+
+        leftBoundary.transform.position = new Vector3(-Mathf.Ceil(((float)(maxRows + boundaryTiles)) * 0.5f), 0, 0);
+        rightBoundary.transform.position = new Vector3(Mathf.Ceil(((float)(maxRows + boundaryTiles)) * 0.5f), 0, 0);
+        topBoundary.transform.position = new Vector3(0, Mathf.Ceil(((float)(maxCols + boundaryTiles)) * 0.5f), 0);
+        botBoundary.transform.position = new Vector3(0, -Mathf.Ceil(((float)(maxCols + boundaryTiles)) * 0.5f), 0);
+    }
+    /// <summary>
+    /// Changes cinemachine target group based on our 4 boundaries.
+    /// Only have 4 elements set in the inspector.
+    /// </summary>
+    private void SetGameCameraBoundaries()
+    {
+        //cinemachineTargetGroup.AddMember(leftBoundary.transform, 1, 0);
+        //cinemachineTargetGroup.AddMember(rightBoundary.transform, 1, 0);
+        //cinemachineTargetGroup.AddMember(topBoundary.transform, 1, 0);
+        //cinemachineTargetGroup.AddMember(botBoundary.transform, 1, 0);
+
+        cinemachineTargetGroup.m_Targets[0].target = leftBoundary.transform;
+        cinemachineTargetGroup.m_Targets[1].target = rightBoundary.transform;
+        cinemachineTargetGroup.m_Targets[2].target = topBoundary.transform;
+        cinemachineTargetGroup.m_Targets[3].target = botBoundary.transform;
     }
 
     /// <summary>

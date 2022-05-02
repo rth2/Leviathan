@@ -15,19 +15,23 @@ public class Critter : MonoBehaviour
         currentDirection = Vector2.left;
     }
 
-
-    public void AddLength(int amountToAdd)
-    {
-        if(amountToAdd == 0) { return; }
-
-        Mathf.Abs(amountToAdd);
-        
-        curLength += amountToAdd;
-    }
-
     public int GetLength()
     {
         return curLength;
+    }
+
+    public Vector2 GetDirection()
+    {
+        return currentDirection;
+    }
+
+    public void AddLength(int amountToAdd)
+    {
+        if (amountToAdd == 0) { return; }
+
+        Mathf.Abs(amountToAdd);
+
+        curLength += amountToAdd;
     }
 
     public void SetDirection(Vector2 newDirection)
@@ -52,9 +56,6 @@ public class Critter : MonoBehaviour
         //find distance between where touch happened (new direction x,y) and where the head of the snake is.
     }
 
-    public Vector2 GetDirection()
-    {
-        return currentDirection;
-    }
+
 
 }
