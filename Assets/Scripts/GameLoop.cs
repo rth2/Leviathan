@@ -17,7 +17,7 @@ public class GameLoop : MonoBehaviour
 
 
     private float currentTick = 0f;
-    private bool isPaused = false;
+    private bool isPlaying = true;
 
     public event Action OnNewTickCycle;
 
@@ -28,16 +28,25 @@ public class GameLoop : MonoBehaviour
 
     void Update()
     {
-        currentTick -= Time.deltaTime * gameSpeed;
-        if (currentTick <= 0)
+        if(isPlaying)
         {
-            OnNewTickCycle?.Invoke();   //tell whatever cares that a new cycle has begun
-            currentTick = tickSpeed;
+            currentTick -= Time.deltaTime * gameSpeed;
+            if (currentTick <= 0)
+            {
+                OnNewTickCycle?.Invoke();   //tell whatever cares that a new cycle has begun
+                currentTick = tickSpeed;
+            }
         }
+
     }
 
     public void SetSpeed(float speed)
     {
         gameSpeed = speed;
+    }
+
+    public void SetIsGamePlaying(bool state)
+    {
+        isPlaying = state;
     }
 }

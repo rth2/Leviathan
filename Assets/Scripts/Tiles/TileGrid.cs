@@ -59,7 +59,7 @@ public class TileGrid : MonoBehaviour
     }
     /// <summary>
     /// Changes cinemachine target group based on our 4 boundaries.
-    /// Only have 4 elements set in the inspector.
+    /// Only have 4 targets available in the inspector.
     /// </summary>
     private void SetGameCameraBoundaries()
     {

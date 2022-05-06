@@ -35,8 +35,9 @@ public class Critter : MonoBehaviour
     }
 
     public void SetDirection(Vector2 newDirection)
-    {   //x and y are the same so not changing direction
-        if(currentDirection.x == newDirection.x && currentDirection.y == newDirection.y) { return; }
+    {
+        //x and y are the same so not changing direction
+        if (currentDirection.x == newDirection.x && currentDirection.y == newDirection.y) { return; }
         //both values have changed, so direction can change
         if(currentDirection.x != newDirection.x && currentDirection.y != newDirection.y)
         {

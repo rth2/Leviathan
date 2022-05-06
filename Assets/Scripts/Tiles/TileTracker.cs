@@ -6,13 +6,20 @@ using UnityEngine;
 public class TileTracker : MonoBehaviour
 {
     [SerializeField] TileGrid tileGrid = null;
+
+    [Header("Objects Connected")]
     [SerializeField] GameLoop gameLoop = null;
     [SerializeField] Critter critter = null;
     [SerializeField] SceneHandler sceneHandler = null;
 
 
+    [Header("Audio")]
+    [SerializeField] AudioClip eatFoodClip = null;
+    [SerializeField] AudioClip critterDieClip = null;
+
+    AudioSource audioSource = null;
     TileList neutralList, critterList, foodList, wallList;
-    
+    float soundFxVolume = 0.6f;
 
     /// <summary>
     /// Sets up the different lists of tiles.
@@ -38,6 +45,8 @@ public class TileTracker : MonoBehaviour
     private void Start()
     {
         if (gameLoop == null) { return; }
+
+        audioSource = GetComponent<AudioSource>();
 
         gameLoop.OnNewTickCycle += MoveCritter;
     }
@@ -74,6 +83,13 @@ public class TileTracker : MonoBehaviour
         {
             tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
             //ate a piece of food so grow and make another food.
+
+            //should play sound when food is eaten
+            if(audioSource)
+            {
+                audioSource.PlayOneShot(eatFoodClip, soundFxVolume);
+            }
+
             critter.AddLength(1);
             if(foodList.GetCount() == 0)
             {
@@ -83,6 +99,10 @@ public class TileTracker : MonoBehaviour
         }   
         else  //all that are left are walls and snakes
         {
+            if (audioSource)
+            {
+                audioSource.PlayOneShot(critterDieClip, soundFxVolume);
+            }
             sceneHandler.HandleDeath();
         }
 
