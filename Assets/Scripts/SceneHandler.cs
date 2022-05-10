@@ -8,6 +8,7 @@ public class SceneHandler : MonoBehaviour
 {
 
     [SerializeField] GameLoop gameLoop = null;
+    [SerializeField] GameObject mainCanvas = null;
     [SerializeField] GameObject gameOverCanvas = null;
     [SerializeField] GameObject victoryImage = null;
     [SerializeField] GameObject defeatImage = null;
@@ -17,10 +18,9 @@ public class SceneHandler : MonoBehaviour
         if (!gameLoop) { return; }
 
         gameLoop.SetIsGamePlaying(false);
+        mainCanvas.SetActive(true);
         gameOverCanvas.SetActive(true);
         victoryImage.SetActive(true);
-
-        //SceneManager.LoadScene(0);
     }
 
     public void HandleDeath()
@@ -28,10 +28,9 @@ public class SceneHandler : MonoBehaviour
         if(!gameLoop) { return; }
 
         gameLoop.SetIsGamePlaying(false);
+        mainCanvas.SetActive(true);
         gameOverCanvas.SetActive(true);
         defeatImage.SetActive(true);
-
-        //SceneManager.LoadScene(2);
     }
 
 }

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 326558586710115993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db9497ac437f5d41b4c41f4d3a50dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameLoop: {fileID: 0}
+  musicDropdown: {fileID: 0}
+  speedDropdown: {fileID: 0}
+  musicSlider: {fileID: 0}
+  soundFXSlider: {fileID: 0}
+  musicToggle: {fileID: 0}
+  soundFXToggle: {fileID: 0}

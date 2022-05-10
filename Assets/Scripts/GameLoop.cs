@@ -15,6 +15,11 @@ public class GameLoop : MonoBehaviour
     [Range(1f, Mathf.Infinity)]
     private float gameSpeed = 1f;
 
+    [SerializeField] const float speedSlow = 2f, speedMedium = 5f, speedFast = 8f;
+
+    [SerializeField] GameObject inGameMenu = null;
+
+    gameSettings settings = null;
 
     private float currentTick = 0f;
     private bool isPlaying = true;
@@ -23,7 +28,10 @@ public class GameLoop : MonoBehaviour
 
     private void Start()
     {
+        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
         currentTick = tickSpeed;
+
+        SetSpeed();
     }
 
     void Update()
@@ -40,13 +48,36 @@ public class GameLoop : MonoBehaviour
 
     }
 
-    public void SetSpeed(float speed)
+    public void SetSpeed()
     {
-        gameSpeed = speed;
+        if(settings == null) { return; }
+
+        switch(settings.GetStartingSpeed())
+        {
+            case (gameSettings.gameSpeed.slow):
+                gameSpeed = speedSlow;
+                break;
+            case (gameSettings.gameSpeed.medium):
+                gameSpeed = speedMedium;
+                break;
+            case (gameSettings.gameSpeed.fast):
+                gameSpeed = speedFast;
+                break;
+            default:
+                break;
+        }
     }
 
     public void SetIsGamePlaying(bool state)
     {
         isPlaying = state;
+    }
+
+    public void HandlePause()
+    {
+        Debug.Log($"We are paused...");
+        isPlaying = false;
+        inGameMenu.SetActive(true);
+
     }
 }

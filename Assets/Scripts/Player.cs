@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] Critter critter = null;
+    [SerializeField] GameLoop gameLoop = null;
 
     Vector2 rawInput = new Vector2();
     Vector3 sanitizedInput = new Vector3();
@@ -47,5 +48,13 @@ public class Player : MonoBehaviour
 
         critter.SetDirectionTouch(new Vector2(sanitizedInput.x, sanitizedInput.y));
     }
+
+    private void OnPause()
+    {
+        if(gameLoop == null) { return; }
+        gameLoop.HandlePause();
+    }
+
+    
 
 }

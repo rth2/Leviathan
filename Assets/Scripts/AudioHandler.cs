@@ -26,16 +26,21 @@ public class AudioHandler : MonoBehaviour
         eatFood = 1
     };
 
-    AUDIO_MUSIC curTrack = AUDIO_MUSIC.superHero;
-    AudioSource audioSource = null;
+    int curTrack = 3;
+    AudioSource musicAudioSource = null;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        musicAudioSource = GetComponent<AudioSource>();
 
-        if(audioSource == null) { return; }
+        if(musicAudioSource == null) { return; }
 
-        ChangeMusicTrack(AUDIO_MUSIC.dragonsVillage);
+        ChangeMusicTrack(curTrack);
+    }
+
+    public int GetCurTrackIndex()
+    {
+        return curTrack;
     }
 
     /// <summary>
@@ -43,68 +48,65 @@ public class AudioHandler : MonoBehaviour
     /// from the current track.
     /// </summary>
     /// <param name="requestedTrack">Track we want to play.</param>
-    public void ChangeMusicTrack(AUDIO_MUSIC requestedTrack)
+    public void ChangeMusicTrack(int dropdownValue)
     {
-        if(audioSource == null) { return; }
+        if(musicAudioSource == null) { return; }
         if(settings == null) {  return; }
-        if(curTrack == requestedTrack) {  return; }
+        if(curTrack == dropdownValue) {  return; }
 
         //get the music volume level from the gameSettings
 
-        switch (requestedTrack)
+        switch (dropdownValue)
         {
-            case AUDIO_MUSIC.dragonsVillage:
-                curTrack = requestedTrack;
-                audioSource.clip = musicTracks[0];
+            case 0:
+                curTrack = dropdownValue;
+                musicAudioSource.clip = musicTracks[0];
                 break;
-            case AUDIO_MUSIC.spookyDungeon:
-                curTrack = requestedTrack;
-                audioSource.clip = musicTracks[1];
+            case 1:
+                curTrack = dropdownValue;
+                musicAudioSource.clip = musicTracks[1];
                 break;
-            case AUDIO_MUSIC.spy:
-                curTrack = requestedTrack;
-                audioSource.clip = musicTracks[2];
+            case 2:
+                curTrack = dropdownValue;
+                musicAudioSource.clip = musicTracks[2];
                 break;
-            case AUDIO_MUSIC.superHero:
-                curTrack = requestedTrack;
-                audioSource.clip = musicTracks[3];
+            case 3:
+                curTrack = dropdownValue;
+                musicAudioSource.clip = musicTracks[3];
                 break;
-            case AUDIO_MUSIC.youAndI:
-                curTrack = requestedTrack;
-                audioSource.clip = musicTracks[4];
+            case 4:
+                curTrack = dropdownValue;
+                musicAudioSource.clip = musicTracks[4];
                 break;
             default:
-                curTrack = AUDIO_MUSIC.dragonsVillage;
-                audioSource.clip = musicTracks[0];
+                curTrack = 0;
+                musicAudioSource.clip = musicTracks[0];
                 break;
         }
 
-        audioSource.volume = settings.GetMusicVolume();
-        audioSource.Play();
+        musicAudioSource.volume = settings.GetMusicVolume();
+        musicAudioSource.Play();
     }
 
     /// <summary>
     /// Plays the requested sound fx if it exists.
     /// </summary>
     /// <param name="requestedFX">sound FX we want to play.</param>
-    public void PlaySoundFX(AUDIO_FX requestedFX)
+    public void PlaySoundFX(AUDIO_FX requestedFX, AudioSource FXaudioSource)
     {
-        if(audioSource == null) { return; }
+        if(FXaudioSource == null) { return; }
         if(settings == null) { return; }
-
-        //get the fxVolume from the game settings.
 
         switch (requestedFX)
         {
             case AUDIO_FX.critterDie:
-                audioSource.PlayOneShot(soundFX[0], settings.GetSoundFXVolume());
+                FXaudioSource.PlayOneShot(soundFX[0], settings.GetSoundFXVolume());
                 break;
             case AUDIO_FX.eatFood:
-                audioSource.PlayOneShot(soundFX[1], settings.GetSoundFXVolume());
+                FXaudioSource.PlayOneShot(soundFX[1], settings.GetSoundFXVolume());
                 break;
             default:
                 break;
         }
     }
-
 }

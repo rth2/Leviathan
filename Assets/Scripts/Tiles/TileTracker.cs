@@ -12,14 +12,12 @@ public class TileTracker : MonoBehaviour
     [SerializeField] Critter critter = null;
     [SerializeField] SceneHandler sceneHandler = null;
 
-
     [Header("Audio")]
-    [SerializeField] AudioClip eatFoodClip = null;
-    [SerializeField] AudioClip critterDieClip = null;
+    [SerializeField] AudioSource audioSource = null;
 
-    AudioSource audioSource = null;
+    gameSettings settings = null;
+    AudioHandler audioHandler = null;
     TileList neutralList, critterList, foodList, wallList;
-    float soundFxVolume = 0.6f;
 
     /// <summary>
     /// Sets up the different lists of tiles.
@@ -45,10 +43,12 @@ public class TileTracker : MonoBehaviour
     private void Start()
     {
         if (gameLoop == null) { return; }
-
-        audioSource = GetComponent<AudioSource>();
-
         gameLoop.OnNewTickCycle += MoveCritter;
+
+        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        if(settings == null) { return; }
+
+        audioHandler = settings.GetComponent<AudioHandler>();
     }
 
     public void MoveCritter()
@@ -82,12 +82,9 @@ public class TileTracker : MonoBehaviour
         else if(newCritterHead.GetTileType() == Tile.TileType.food)
         {
             tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
-            //ate a piece of food so grow and make another food.
-
-            //should play sound when food is eaten
-            if(audioSource)
+            if(audioHandler)
             {
-                audioSource.PlayOneShot(eatFoodClip, soundFxVolume);
+                audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.eatFood, audioSource);
             }
 
             critter.AddLength(1);
@@ -99,13 +96,12 @@ public class TileTracker : MonoBehaviour
         }   
         else  //all that are left are walls and snakes
         {
-            if (audioSource)
+            if (audioHandler)
             {
-                audioSource.PlayOneShot(critterDieClip, soundFxVolume);
+                audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.critterDie, audioSource);
             }
             sceneHandler.HandleDeath();
         }
-
     }
 
     public void AddTileToList( Tile tile)

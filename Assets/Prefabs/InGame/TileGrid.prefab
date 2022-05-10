@@ -49,8 +49,7 @@ MonoBehaviour:
   gameLoop: {fileID: 0}
   critter: {fileID: 0}
   sceneHandler: {fileID: 0}
-  eatFoodClip: {fileID: 8300000, guid: 1879ac8ff7ec1be46bea96bf8b2652ac, type: 3}
-  critterDieClip: {fileID: 8300000, guid: a1e7223cb2c18b5468539aefa4eda972, type: 3}
+  audioSource: {fileID: 832550170851598312}
 --- !u!82 &832550170851598312
 AudioSource:
   m_ObjectHideFlags: 0
@@ -62,7 +61,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
