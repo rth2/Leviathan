@@ -51,6 +51,31 @@ public class TileTracker : MonoBehaviour
         audioHandler = settings.GetComponent<AudioHandler>();
     }
 
+    public TileList GetTileList(Tile.TileType listType)
+    {
+        TileList listToGet = null;
+
+        switch(listType)
+        {
+            case Tile.TileType.critter:
+                listToGet = critterList;
+                break;
+            case Tile.TileType.food:
+                listToGet = foodList;
+                break;
+            case Tile.TileType.neutral:
+                listToGet = neutralList;
+                break;
+            case Tile.TileType.wall:
+                listToGet = wallList;
+                break;
+            default:
+                break;
+        }
+
+        return listToGet;
+    }
+
     public void MoveCritter()
     {
         if(tileGrid == null) { return; }

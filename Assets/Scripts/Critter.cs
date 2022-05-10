@@ -8,7 +8,7 @@ public class Critter : MonoBehaviour
     
     [SerializeField] private int curLength = 2;
     [SerializeField] private Vector2 currentDirection = new Vector2();
-    
+    [SerializeField] TileTracker tileTracker = null;
 
     private void Awake()
     {
@@ -34,6 +34,10 @@ public class Critter : MonoBehaviour
         curLength += amountToAdd;
     }
 
+    /// <summary>
+    /// Sets the direction the critter should go. This is for PC (WASD and Arrow Keys).
+    /// </summary>
+    /// <param name="newDirection">Requested Direction</param>
     public void SetDirection(Vector2 newDirection)
     {
         //x and y are the same so not changing direction
@@ -52,11 +56,58 @@ public class Critter : MonoBehaviour
         return;
     }
 
-    public void SetDirectionTouch(Vector2 newDirection)
+    /// <summary>
+    /// Sets the direction the critter should go for Mobile. Based on primarey touch location.
+    /// </summary>
+    /// <param name="touchLocation">Vector2 of the spot touched.</param>
+    public void SetDirectionTouch(Vector2 touchLocation)
     {
-        //find distance between where touch happened (new direction x,y) and where the head of the snake is.
+        if(tileTracker == null) { return; }
+
+        Tile critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile.TileType.critter));
+
+        Vector2 critterHeadPos = new Vector2();
+        critterHeadPos = critterHead.GetTilePosition();
+
+        if (critterHeadPos == touchLocation) { return; }
+
+        Vector2 oldDirection = new Vector2();
+        oldDirection = currentDirection;
+
+        touchLocation.x = touchLocation.x - critterHeadPos.x;
+        touchLocation.y = touchLocation.y - critterHeadPos.y;
+
+        if (touchLocation.x > 0)
+            touchLocation.x = 1;
+        else if (touchLocation.x < 0)
+            touchLocation.x = -1;
+
+        if (touchLocation.y > 0)
+            touchLocation.y = -1;
+        else if (touchLocation.y < 0)
+            touchLocation.y = 1;
+
+        if (touchLocation == currentDirection) { return; }
+        //have 1,-1, or 0 for values of x and y.
+
+        if (currentDirection.x != 0)
+        {
+            currentDirection.x = 0f;
+            currentDirection.y = touchLocation.y;
+        }
+        else if(currentDirection.y != 0)
+        {
+            currentDirection.x = touchLocation.x;
+            currentDirection.y = 0f;
+        }
+
+        if(currentDirection == Vector2.zero)
+        {
+            currentDirection = oldDirection;
+        }
+
     }
 
-
+    
 
 }

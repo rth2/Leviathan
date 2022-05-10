@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
 
         sanitizedInput = mainCamera.ScreenToWorldPoint(new Vector3(rawInput.x, rawInput.y, 0));
 
+        sanitizedInput.x = Mathf.Round(sanitizedInput.x);
+        sanitizedInput.y = Mathf.Round(sanitizedInput.y);
+
         critter.SetDirectionTouch(new Vector2(sanitizedInput.x, sanitizedInput.y));
     }
 

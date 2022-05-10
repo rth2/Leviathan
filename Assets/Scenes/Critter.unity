@@ -148,11 +148,11 @@ PrefabInstance:
       objectReference: {fileID: 2053942364}
     - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: maxCols
-      value: 4
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: maxRows
-      value: 4
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: obstacleCreator
@@ -276,11 +276,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1785
+      value: -2030
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.1542113e-28
+      value: 6.326292e-29
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -292,7 +292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -324,7 +324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -875,6 +875,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1557460759446691866, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
+      propertyPath: tileTracker
+      value: 
+      objectReference: {fileID: 710118744}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
 --- !u!114 &2053942364 stripped
