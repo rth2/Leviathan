@@ -22,6 +22,10 @@ public class ButtonHandler : MonoBehaviour
     [SerializeField] Toggle musicToggle = null;
     [SerializeField] Toggle soundFXToggle = null;
 
+    [Header("Input Fields")]
+    [SerializeField] TMP_InputField rowInputField = null;
+    [SerializeField] TMP_InputField colInputField = null;
+
     AudioHandler audioHandler = null;
     gameSettings settings = null;
     
@@ -72,6 +76,36 @@ public class ButtonHandler : MonoBehaviour
 
         gameLoop.SetIsGamePlaying(true);
 
+    }
+
+    public void SetRowCount()
+    {
+        if(settings == null) { return; }
+        if(rowInputField == null) { return; }
+
+        if(!int.TryParse(rowInputField.text, out int newRowAmount))
+        {
+            settings.SetNumberOfRows(settings.GetMinRowColAmount());
+        }
+        else
+            settings.SetNumberOfRows(newRowAmount);
+
+        rowInputField.text = settings.GetNumberOfRows().ToString();
+    }
+
+    public void SetColumnCount()
+    {
+        if (settings == null) { return; }
+        if (colInputField == null) { return; }
+
+        if (!int.TryParse(colInputField.text, out int newColAmount))
+        {
+            settings.SetNumberOfCols(settings.GetMinRowColAmount());
+        }
+        else
+            settings.SetNumberOfCols(newColAmount);
+
+        colInputField.text = settings.GetNumberOfCols().ToString();
     }
 
     private void ShowCurrentDropdownOptions()

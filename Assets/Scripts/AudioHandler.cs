@@ -10,15 +10,14 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] AudioClip[] musicTracks = new AudioClip[5];
     [SerializeField] AudioClip[] soundFX = new AudioClip[2];
 
-    public enum AUDIO_MUSIC
-    {
-        dragonsVillage = 0,
-        spookyDungeon = 1,
-        spy = 2,
-        superHero = 3,
-        youAndI = 4
-
-    };
+    //public enum AUDIO_MUSIC
+    //{
+    //    dragonsVillage = 0,
+    //    spookyDungeon = 1,
+    //    spy = 2,
+    //    superHero = 3,
+    //    youAndI = 4
+    //};
 
     public enum AUDIO_FX
     {
@@ -26,8 +25,10 @@ public class AudioHandler : MonoBehaviour
         eatFood = 1
     };
 
-    int curTrack = 3;
     AudioSource musicAudioSource = null;
+
+    int curTrack = 3;
+
 
     private void Start()
     {
@@ -38,6 +39,10 @@ public class AudioHandler : MonoBehaviour
         ChangeMusicTrack(curTrack);
     }
 
+    /// <summary>
+    /// Gets the index for the current background music.
+    /// </summary>
+    /// <returns>CurTrack</returns>
     public int GetCurTrackIndex()
     {
         return curTrack;
@@ -47,7 +52,7 @@ public class AudioHandler : MonoBehaviour
     /// Changes the background music if it is different
     /// from the current track.
     /// </summary>
-    /// <param name="requestedTrack">Track we want to play.</param>
+    /// <param name="dropdownValue">Track we want to play based on TMP dropdown.</param>
     public void ChangeMusicTrack(int dropdownValue)
     {
         if(musicAudioSource == null) { return; }
@@ -91,7 +96,9 @@ public class AudioHandler : MonoBehaviour
     /// <summary>
     /// Plays the requested sound fx if it exists.
     /// </summary>
-    /// <param name="requestedFX">sound FX we want to play.</param>
+    /// <param name="requestedFX">Sound FX we want to play.</param>
+    /// <param name="FXaudioSource">Audio source to play the fx. So volume can be changed without
+    ///                                 having the bg music and fx volume linked.</param>
     public void PlaySoundFX(AUDIO_FX requestedFX, AudioSource FXaudioSource)
     {
         if(FXaudioSource == null) { return; }

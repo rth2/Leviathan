@@ -21,6 +21,11 @@ public class gameSettings : MonoBehaviour
     [SerializeField] float soundFXVolume = 0.6f;
     [SerializeField] AudioSource audioSource = null;
 
+    [Header("Rows and Columns")]
+    [SerializeField] int curRows = 25;
+    [SerializeField] int curCols = 19;
+    [SerializeField] int minRowCol = 4;
+    [SerializeField] int maxRowCol = 100;
 
     private void Awake()
     {
@@ -33,6 +38,50 @@ public class gameSettings : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    public int GetMinRowColAmount()
+    {
+        return minRowCol;
+    }
+
+    public int GetMaxRowColAmount()
+    {
+        return maxRowCol;
+    }
+
+    public int GetNumberOfRows()
+    {
+        return curRows;
+    }
+
+    public int GetNumberOfCols()
+    {
+        return curCols;
+    }
+
+    public void SetNumberOfRows(int newRowAmount)
+    {
+        if(curRows == newRowAmount) { return; }
+
+        if (newRowAmount < minRowCol)
+            curRows = minRowCol;
+        else if (newRowAmount > maxRowCol)
+            curRows = maxRowCol;
+        else
+            curRows = newRowAmount;
+    }
+
+    public void SetNumberOfCols(int newColAmount)
+    {
+        if(curCols == newColAmount) { return; }
+
+        if (newColAmount < minRowCol)
+            curCols = minRowCol;
+        else if (newColAmount > maxRowCol)
+            curCols = maxRowCol;
+        else
+            curCols = newColAmount;
     }
 
     public gameSpeed GetStartingSpeed()

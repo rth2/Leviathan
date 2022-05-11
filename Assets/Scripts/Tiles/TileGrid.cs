@@ -10,7 +10,6 @@ public class TileGrid : MonoBehaviour
 
     [Header("Tile Grid Attributes")]
     [SerializeField] GameObject tile = null;
-    [SerializeField] int maxRows = 25, maxCols = 19;
     [SerializeField] GameObject tileCache = null;
     [SerializeField] TileTracker tileTracker = null;
 
@@ -28,6 +27,12 @@ public class TileGrid : MonoBehaviour
     float tileOffset = 0.5f;    //tiles should be 1 unity unit. This offsets the tile to match the unity grid on whole integers.
     int boundaryTiles = 2;      //boundary wall for the tileGrid. One on each side of X; one on each side of Y.
 
+    gameSettings settings = null;
+
+    private void Awake()
+    {
+        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+    }
 
     private void Start()
     {
@@ -36,6 +41,8 @@ public class TileGrid : MonoBehaviour
         SetGameCameraBoundaries();
         PlaceCritterOnGrid();
         PlaceFoodOnGrid();
+
+
     }
 
     /// <summary>
@@ -52,10 +59,12 @@ public class TileGrid : MonoBehaviour
         botBoundary = new GameObject();
         botBoundary.name = "botBoundary";
 
-        leftBoundary.transform.position = new Vector3(-Mathf.Ceil(((float)(maxRows + boundaryTiles)) * 0.5f), 0, 0);
-        rightBoundary.transform.position = new Vector3(Mathf.Ceil(((float)(maxRows + boundaryTiles)) * 0.5f), 0, 0);
-        topBoundary.transform.position = new Vector3(0, Mathf.Ceil(((float)(maxCols + boundaryTiles)) * 0.5f), 0);
-        botBoundary.transform.position = new Vector3(0, -Mathf.Ceil(((float)(maxCols + boundaryTiles)) * 0.5f), 0);
+        if(settings == null) { return; }
+
+        leftBoundary.transform.position = new Vector3(-Mathf.Ceil(((float)(settings.GetNumberOfRows() + boundaryTiles)) * 0.5f), 0, 0);
+        rightBoundary.transform.position = new Vector3(Mathf.Ceil(((float)(settings.GetNumberOfRows() + boundaryTiles)) * 0.5f), 0, 0);
+        topBoundary.transform.position = new Vector3(0, Mathf.Ceil(((float)(settings.GetNumberOfCols() + boundaryTiles)) * 0.5f), 0);
+        botBoundary.transform.position = new Vector3(0, -Mathf.Ceil(((float)(settings.GetNumberOfCols() + boundaryTiles)) * 0.5f), 0);
     }
     /// <summary>
     /// Changes cinemachine target group based on our 4 boundaries.
@@ -90,9 +99,10 @@ public class TileGrid : MonoBehaviour
     private void PlaceCritterOnGrid()
     {
         if(critter == null) { return; }
+        if(settings == null) { return; }
 
-        int startingRow = Mathf.FloorToInt(maxRows * 0.5f);
-        int startingCol = Mathf.FloorToInt(maxCols * 0.5f);
+        int startingRow = Mathf.FloorToInt(settings.GetNumberOfRows() * 0.5f);
+        int startingCol = Mathf.FloorToInt(settings.GetNumberOfCols() * 0.5f);
         int critterLength = critter.GetLength();
 
         for (int i = 0; i < critterLength; i++)
@@ -116,8 +126,10 @@ public class TileGrid : MonoBehaviour
         //need to set my actual row/col when tiles are first made and store those.
 
         if (tileGrid == null) {  return tile; }
-        if (row < 0 || row >= maxRows + boundaryTiles) {  return tile; }
-        if (col < 0 || col >= maxCols + boundaryTiles) {  return tile; }
+        if(settings == null) { return tile; }
+
+        if (row < 0 || row >= settings.GetNumberOfRows() + boundaryTiles) {  return tile; }
+        if (col < 0 || col >= settings.GetNumberOfCols() + boundaryTiles) {  return tile; }
 
         tile = tileGrid[row, col].GetComponent<Tile>();
         return tile;
@@ -130,8 +142,10 @@ public class TileGrid : MonoBehaviour
     /// </summary>
     private void BuildTileGrid()
     {
-        int rowAmount = maxRows + boundaryTiles;
-        int colAmount = maxCols + boundaryTiles;
+        if (settings == null) { return; }
+
+        int rowAmount = settings.GetNumberOfRows() + boundaryTiles;
+        int colAmount = settings.GetNumberOfCols() + boundaryTiles;
         Vector3 tileToPlacePos = new Vector3();
 
         tileGrid = new GameObject[rowAmount, colAmount];

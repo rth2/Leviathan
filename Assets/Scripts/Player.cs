@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+#if UNITY_STANDALONE
     void OnMoveWASD(InputValue value)
     {
         if(critter == null) { return; }
@@ -35,9 +36,10 @@ public class Player : MonoBehaviour
         rawInput.y = -rawInput.y;
 
         critter.SetDirection(new Vector2(rawInput.x, rawInput.y));
-
     }
+#endif
 
+//#if UNITY_ANDROID
     void OnMoveTouch(InputValue value)
     {
         if (critter == null) { return; }
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
 
         critter.SetDirectionTouch(new Vector2(sanitizedInput.x, sanitizedInput.y));
     }
-
+//#endif
     private void OnPause()
     {
         if(gameLoop == null) { return; }
