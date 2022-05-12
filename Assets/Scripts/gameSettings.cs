@@ -16,6 +16,9 @@ public class gameSettings : MonoBehaviour
     };
 
     [SerializeField] gameSpeed startingSpeed = gameSpeed.medium;
+    [SerializeField] bool critterGameMode = false;
+
+    [Header("Audio")]
     [SerializeField] bool isMusicPlaying = true, isPlayingSoundFX = true;
     [SerializeField] float musicVolume = 0.3f;
     [SerializeField] float soundFXVolume = 0.6f;
@@ -40,6 +43,7 @@ public class gameSettings : MonoBehaviour
         }
     }
 
+    #region Getters
     public int GetMinRowColAmount()
     {
         return minRowCol;
@@ -58,30 +62,6 @@ public class gameSettings : MonoBehaviour
     public int GetNumberOfCols()
     {
         return curCols;
-    }
-
-    public void SetNumberOfRows(int newRowAmount)
-    {
-        if(curRows == newRowAmount) { return; }
-
-        if (newRowAmount < minRowCol)
-            curRows = minRowCol;
-        else if (newRowAmount > maxRowCol)
-            curRows = maxRowCol;
-        else
-            curRows = newRowAmount;
-    }
-
-    public void SetNumberOfCols(int newColAmount)
-    {
-        if(curCols == newColAmount) { return; }
-
-        if (newColAmount < minRowCol)
-            curCols = minRowCol;
-        else if (newColAmount > maxRowCol)
-            curCols = maxRowCol;
-        else
-            curCols = newColAmount;
     }
 
     public gameSpeed GetStartingSpeed()
@@ -137,6 +117,14 @@ public class gameSettings : MonoBehaviour
         return curSpeedIndex;
     }
 
+    public bool GetInCritterGameMode()
+    {
+        return critterGameMode;
+    }
+
+    #endregion
+
+    #region Setters
     public void SetGameSpeed(gameSpeed newSpeed)
     {
         startingSpeed = newSpeed;
@@ -201,5 +189,36 @@ public class gameSettings : MonoBehaviour
         soundFXVolume = newVolume;
 
     }
+
+    public void SetNumberOfRows(int newRowAmount)
+    {
+        if (curRows == newRowAmount) { return; }
+
+        if (newRowAmount < minRowCol)
+            curRows = minRowCol;
+        else if (newRowAmount > maxRowCol)
+            curRows = maxRowCol;
+        else
+            curRows = newRowAmount;
+    }
+
+    public void SetNumberOfCols(int newColAmount)
+    {
+        if (curCols == newColAmount) { return; }
+
+        if (newColAmount < minRowCol)
+            curCols = minRowCol;
+        else if (newColAmount > maxRowCol)
+            curCols = maxRowCol;
+        else
+            curCols = newColAmount;
+    }
+
+    public void SetInCritterGameMode(bool isCritterGameMode)
+    {
+        critterGameMode = isCritterGameMode;
+    }
+
+    #endregion
 
 }

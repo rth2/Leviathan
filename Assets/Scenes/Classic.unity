@@ -260,6 +260,10 @@ PrefabInstance:
       value: -419.99957
       objectReference: {fileID: 0}
     - target: {fileID: 3468510692902472750, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
+      propertyPath: critter
+      value: 
+      objectReference: {fileID: 777844056}
+    - target: {fileID: 3468510692902472750, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: gameLoop
       value: 
       objectReference: {fileID: 1645084678}
@@ -293,23 +297,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 463980278}
+      objectReference: {fileID: 766856641}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ResumeGame
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: ButtonHandler, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3930496297593097483, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -797,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24169.504
+      value: -24484.504
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -813,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 1e-45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -845,15 +849,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.4e-44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 3e-45
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -1e-45
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -865,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214667124943626, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.8e-44
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
@@ -1028,6 +1032,10 @@ PrefabInstance:
       propertyPath: gameLoop
       value: 
       objectReference: {fileID: 1645084678}
+    - target: {fileID: 1973729163, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+      propertyPath: foodCreator
+      value: 
+      objectReference: {fileID: 2057068057}
     - target: {fileID: 1973729163, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: sceneHandler
       value: 

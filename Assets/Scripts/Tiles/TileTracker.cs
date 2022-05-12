@@ -6,8 +6,9 @@ using UnityEngine;
 public class TileTracker : MonoBehaviour
 {
     [SerializeField] TileGrid tileGrid = null;
+    [SerializeField] ClassicCreateFood foodCreator = null;
 
-    [Header("Objects Connected")]
+    [Header("Object dependencies")]
     [SerializeField] GameLoop gameLoop = null;
     [SerializeField] Critter critter = null;
     [SerializeField] SceneHandler sceneHandler = null;
@@ -81,9 +82,12 @@ public class TileTracker : MonoBehaviour
         if(tileGrid == null) { return; }
         if(critter == null) { return; }
 
+        Debug.Log(critter.GetDirection());
+
         Tile critterHead = GetTileFromList(0, critterList);
 
         Vector2 critterHeadIndex = critterHead.GetTileIndex();
+        critter.CalculateDirection();
         Vector2 directionToMove = critter.GetDirection();
 
         int newCritterHeadIndexX = Mathf.FloorToInt(critterHeadIndex.x + directionToMove.x);
@@ -107,16 +111,26 @@ public class TileTracker : MonoBehaviour
         else if(newCritterHead.GetTileType() == Tile.TileType.food)
         {
             tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+
             if(audioHandler)
             {
                 audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.eatFood, audioSource);
             }
 
             critter.AddLength(1);
+            
+
             if(foodList.GetCount() == 0)
             {
                 tileGrid.PlaceFoodOnGrid();
             }
+
+            if(settings == null) { return; }
+            if(!settings.GetInCritterGameMode()) { return; }
+            if(gameLoop == null) { return; }
+            if(foodCreator == null) { return; }
+
+            gameLoop.AddToSpeedFromFood(foodCreator.GetIncreaseSpeedAmount());
             
         }   
         else  //all that are left are walls and snakes

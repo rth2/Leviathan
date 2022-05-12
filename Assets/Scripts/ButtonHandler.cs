@@ -50,11 +50,17 @@ public class ButtonHandler : MonoBehaviour
 
     public void OnCritterGameStart()
     {
+        if(settings == null) { return; }
+
+        settings.SetInCritterGameMode(true);
         SceneManager.LoadScene(1);
     }
 
     public void ClassicGameStart()
     {
+        if (settings == null) { return; }
+
+        settings.SetInCritterGameMode(false);
         SceneManager.LoadScene(2);
     }
 
@@ -139,6 +145,17 @@ public class ButtonHandler : MonoBehaviour
 
     }
 
+    public void ShowCurrentRowColCounts()
+    {
+        if(settings == null) { return; }
+        if(rowInputField == null) { return; }
+        if(colInputField == null) { return; }
+
+        rowInputField.text = settings.GetNumberOfRows().ToString();
+        colInputField.text = settings.GetNumberOfCols().ToString();
+
+    }
+
     public void ChangeBackgroundMusic( int optionValue)
     {
         if(audioHandler == null) { return; }
@@ -151,7 +168,7 @@ public class ButtonHandler : MonoBehaviour
         settings.SetGameSpeed(optionValue);
 
         if (gameLoop == null) { return; }
-        gameLoop.SetSpeed();
+        gameLoop.SetStartingSpeed();
     }
 
     public void ChangeMusicVolume(float newVolume)

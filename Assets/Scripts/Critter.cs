@@ -5,14 +5,37 @@ using UnityEngine;
 
 public class Critter : MonoBehaviour
 {
-    
-    [SerializeField] private int curLength = 2;
+    [Header("Critter Information")]
+    [SerializeField] private int curLength = 1;
     [SerializeField] private Vector2 currentDirection = new Vector2();
+    [SerializeField] private Vector2 requestedDirection = new Vector2();
+
+    [Header("Dependencies")]
     [SerializeField] TileTracker tileTracker = null;
+
+
+    private int foodEaten = 0;
 
     private void Awake()
     {
         currentDirection = Vector2.left;
+        requestedDirection = Vector2.left;
+    }
+
+    public void CalculateDirection()
+    {
+        if(requestedDirection == currentDirection) { return; }
+
+        currentDirection = requestedDirection;
+    }
+
+    public void AddLength(int amountToAdd)
+    {
+        if (amountToAdd == 0) { return; }
+
+        Mathf.Abs(amountToAdd);
+
+        curLength += amountToAdd;
     }
 
     public int GetLength()
@@ -23,15 +46,6 @@ public class Critter : MonoBehaviour
     public Vector2 GetDirection()
     {
         return currentDirection;
-    }
-
-    public void AddLength(int amountToAdd)
-    {
-        if (amountToAdd == 0) { return; }
-
-        Mathf.Abs(amountToAdd);
-
-        curLength += amountToAdd;
     }
 
     /// <summary>
@@ -45,13 +59,13 @@ public class Critter : MonoBehaviour
         //both values have changed, so direction can change
         if(currentDirection.x != newDirection.x && currentDirection.y != newDirection.y)
         {
-            currentDirection = new Vector2(newDirection.x, newDirection.y);
+            requestedDirection = new Vector2(newDirection.x, newDirection.y);
             return;
         }
         //one value has changed the other has not
         if(curLength == 1)  //critter of length 1 can turn any direction
         {
-            currentDirection = new Vector2(newDirection.x, newDirection.y);
+            requestedDirection = new Vector2(newDirection.x, newDirection.y);
         }
         return;
     }
@@ -62,7 +76,7 @@ public class Critter : MonoBehaviour
     /// <param name="touchLocation">Vector2 of the spot touched.</param>
     public void SetDirectionTouch(Vector2 touchLocation)
     {
-        if(tileTracker == null) { return; }
+        if (tileTracker == null) { return; }
 
         Tile critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile.TileType.critter));
 
@@ -92,22 +106,21 @@ public class Critter : MonoBehaviour
 
         if (currentDirection.x != 0)
         {
-            currentDirection.x = 0f;
-            currentDirection.y = touchLocation.y;
+            requestedDirection.x = 0f;
+            requestedDirection.y = touchLocation.y;
         }
         else if(currentDirection.y != 0)
         {
-            currentDirection.x = touchLocation.x;
-            currentDirection.y = 0f;
+            requestedDirection.x = touchLocation.x;
+            requestedDirection.y = 0f;
         }
 
         if(currentDirection == Vector2.zero)
         {
-            currentDirection = oldDirection;
+            requestedDirection = oldDirection;
         }
 
     }
 
-    
 
 }

@@ -24,6 +24,12 @@ public class Player : MonoBehaviour
     void OnMoveWASD(InputValue value)
     {
         if(critter == null) { return; }
+        if(gameLoop == null) { return; }
+
+        if(!gameLoop.GetIsGamePlaying())
+        {
+            return;
+        }
 
         rawInput = value.Get<Vector2>();
 
@@ -43,6 +49,12 @@ public class Player : MonoBehaviour
     void OnMoveTouch(InputValue value)
     {
         if (critter == null) { return; }
+        if (gameLoop == null) { return; }
+
+        if (!gameLoop.GetIsGamePlaying())
+        {
+            return;
+        }
 
         rawInput = value.Get<Vector2>();
 
