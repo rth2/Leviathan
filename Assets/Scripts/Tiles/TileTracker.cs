@@ -181,7 +181,7 @@ public class TileTracker : MonoBehaviour
                 }
             case Tile.TileType.teleporter:
                 {
-                    //play a sound
+                    audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.teleporter, audioSource);
                     newCritterHead = newCritterHead.GetTeleporterPair();
 
                     MoveCritterTail();
@@ -193,6 +193,8 @@ public class TileTracker : MonoBehaviour
             case Tile.TileType.speedBoost:
                 {
                     if(gameLoop == null) { return; }
+
+                    audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.speedBoost, audioSource);
 
                     MoveCritterTail();
 

@@ -8,26 +8,19 @@ public class AudioHandler : MonoBehaviour
 
     [Header("Music and FX")]
     [SerializeField] AudioClip[] musicTracks = new AudioClip[5];
-    [SerializeField] AudioClip[] soundFX = new AudioClip[2];
-
-    //public enum AUDIO_MUSIC
-    //{
-    //    dragonsVillage = 0,
-    //    spookyDungeon = 1,
-    //    spy = 2,
-    //    superHero = 3,
-    //    youAndI = 4
-    //};
+    [SerializeField] AudioClip[] soundFX = new AudioClip[4];
 
     public enum AUDIO_FX
     {
         critterDie = 0,
-        eatFood = 1
+        eatFood = 1,
+        teleporter = 2,
+        speedBoost = 3
     };
 
     AudioSource musicAudioSource = null;
 
-    int curTrack = 3;
+    [SerializeField] int curTrack = 3;
 
 
     private void Start()
@@ -59,8 +52,6 @@ public class AudioHandler : MonoBehaviour
         if(settings == null) {  return; }
         if(curTrack == dropdownValue) {  return; }
 
-        //get the music volume level from the gameSettings
-
         switch (dropdownValue)
         {
             case 0:
@@ -91,6 +82,12 @@ public class AudioHandler : MonoBehaviour
 
         musicAudioSource.volume = settings.GetMusicVolume();
         musicAudioSource.Play();
+
+        if(settings.GetIsMusicPlaying() == false)
+        {
+            musicAudioSource.Pause();
+        }
+
     }
 
     /// <summary>
@@ -111,6 +108,12 @@ public class AudioHandler : MonoBehaviour
                 break;
             case AUDIO_FX.eatFood:
                 FXaudioSource.PlayOneShot(soundFX[1], settings.GetSoundFXVolume());
+                break;
+            case AUDIO_FX.teleporter:
+                FXaudioSource.PlayOneShot(soundFX[2], settings.GetSoundFXVolume());
+                break;
+            case AUDIO_FX.speedBoost:
+                FXaudioSource.PlayOneShot(soundFX[3], settings.GetSoundFXVolume());
                 break;
             default:
                 break;

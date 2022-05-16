@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5bb3f73604a2bc4e853b5b957a4a7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingSpeed: 1
+  startingSpeed: 2
   critterGameMode: 0
   isMusicPlaying: 1
   isPlayingSoundFX: 1
@@ -475,6 +475,8 @@ MonoBehaviour:
   soundFX:
   - {fileID: 8300000, guid: a1e7223cb2c18b5468539aefa4eda972, type: 3}
   - {fileID: 8300000, guid: 1879ac8ff7ec1be46bea96bf8b2652ac, type: 3}
+  - {fileID: 8300000, guid: fb2ba4b620756684c954007353aee286, type: 3}
+  - {fileID: 8300000, guid: 8cad4d494b0e94343be2d4bb02975a32, type: 3}
 --- !u!224 &1299646711 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5051137643719795950, guid: 4c2e1cf89c400514d9e1ebc980c56bc5, type: 3}
@@ -673,6 +675,10 @@ PrefabInstance:
     - target: {fileID: 5051137642967365316, guid: 4c2e1cf89c400514d9e1ebc980c56bc5, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.428
+      objectReference: {fileID: 0}
+    - target: {fileID: 5051137643157899696, guid: 4c2e1cf89c400514d9e1ebc980c56bc5, type: 3}
+      propertyPath: m_Value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5051137643157899697, guid: 4c2e1cf89c400514d9e1ebc980c56bc5, type: 3}
       propertyPath: m_AnchorMax.y
