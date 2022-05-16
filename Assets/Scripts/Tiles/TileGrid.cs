@@ -41,8 +41,6 @@ public class TileGrid : MonoBehaviour
         SetGameCameraBoundaries();
         PlaceCritterOnGrid();
         PlaceFoodOnGrid();
-
-
     }
 
     /// <summary>

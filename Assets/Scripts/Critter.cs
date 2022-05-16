@@ -12,14 +12,22 @@ public class Critter : MonoBehaviour
 
     [Header("Dependencies")]
     [SerializeField] TileTracker tileTracker = null;
+    [SerializeField] CreateObjects obstacleCreator = null;
 
+    [SerializeField] private int spawnObjectEveryXFoodEaten = 3;
 
     private int foodEaten = 0;
+    gameSettings settings = null;
 
     private void Awake()
     {
         currentDirection = Vector2.left;
         requestedDirection = Vector2.left;
+    }
+
+    private void Start()
+    {
+        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
     }
 
     public void CalculateDirection()
@@ -36,6 +44,19 @@ public class Critter : MonoBehaviour
         Mathf.Abs(amountToAdd);
 
         curLength += amountToAdd;
+    }
+
+    public void AddFoodEaten()
+    {
+        foodEaten++;
+
+        if (!settings.GetInCritterGameMode()) { return; }
+        if(obstacleCreator == null) { return; }
+
+        if(foodEaten%spawnObjectEveryXFoodEaten == 0)
+        {
+            obstacleCreator.CreateRandomObstacle();
+        }
     }
 
     public int GetLength()

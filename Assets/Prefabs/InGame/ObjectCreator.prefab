@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3266998607862884084}
   - component: {fileID: 3266998607862884087}
+  - component: {fileID: 2142059140}
   m_Layer: 0
   m_Name: ObjectCreator
-  m_TagString: Untagged
+  m_TagString: ObstacleCreator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,3 +46,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileTracker: {fileID: 0}
+  increaseSpeedAmount: 0.1
+--- !u!114 &2142059140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3266998607862884086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511b280680b19894dbebe12c732c735a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleSprites:
+  - {fileID: 21300000, guid: a27b8981e837a00409fb379ca9edf61c, type: 3}
+  - {fileID: 21300000, guid: f69b433422f96d54fb67249e94d01d92, type: 3}
+  - {fileID: 21300000, guid: 68b4b3d198a19f9439a39e3e49e65bc6, type: 3}
+  - {fileID: 21300000, guid: dfd990b49cbc465499de9f212656ae6a, type: 3}
+  tileTracker: {fileID: 0}
+  tileGrid: {fileID: 0}
+  critter: {fileID: 0}

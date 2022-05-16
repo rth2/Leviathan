@@ -102,4 +102,10 @@ MonoBehaviour:
   foodColor: {r: 1, g: 0, b: 0, a: 1}
   wallColor: {r: 0, g: 0, b: 0, a: 1}
   critterColor: {r: 0, g: 0, b: 0, a: 1}
+  obstacleColor: {r: 0.3301137, g: 0.09878961, b: 0.5660378, a: 0}
   posOnBoard: {x: 0, y: 0}
+  indexOnBoard: {x: 0, y: 0}
+  baseSpriteRenderer: {fileID: 7661975268878177192}
+  obstacleSpriteRenderer: {fileID: 0}
+  foodSprite: {fileID: 21300000, guid: c2ff97c39d9759949a1f8d619b61612f, type: 3}
+  defaultSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}

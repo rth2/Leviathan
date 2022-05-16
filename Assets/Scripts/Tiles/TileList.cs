@@ -70,7 +70,7 @@ public class TileList : MonoBehaviour
 
         if(type != tileType) { return; }
 
-        if(type == Tile.TileType.critter)
+        if(type == Tile.TileType.critter || type == Tile.TileType.teleporter)
         {
             tileList.Insert(0, tile);
         }
@@ -78,6 +78,29 @@ public class TileList : MonoBehaviour
         {
             tileList.Add(tile);
         }
+
+        if(type == Tile.TileType.teleporter)
+        {
+            tile.SetIsTeleporter(true);
+
+            if (tile.GetTeleporterPair() != null)
+            {
+                tileList[0].SetColor(tile.GetTeleporterPair().GetObstacleColor());
+                return;
+            }
+
+            if(tileList.Count % 2 == 0)
+            {
+                tile.SetTeleporterPair(tileList[1]);
+                tileList[1].SetTeleporterPair(tileList[0]);
+
+                Color color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+                tileList[0].SetColor(color);
+                tileList[1].SetColor(color);
+
+            }
+        }
+
     }
 
     /// <summary>

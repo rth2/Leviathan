@@ -9,30 +9,108 @@ public class Tile : MonoBehaviour
         neutral = 0,
         food = 1,
         wall = 2,
-        critter = 3
+        critter = 3,
+        teleporter = 4,
+        speedBoost = 5,
+        movingObstacle = 6
     };
 
+    [Header("Tile Attributes")]
     [SerializeField] TileType tileType;
-    [SerializeField] Color neutralColor, foodColor, wallColor, critterColor = new Color();
+    [SerializeField] Color neutralColor, foodColor, wallColor, critterColor, obstacleColor = new Color();
 
+    [Header("Board Attributes")]
     [SerializeField] Vector2 posOnBoard = new Vector2();
     [SerializeField] Vector2 indexOnBoard = new Vector2();
 
-    SpriteRenderer sr = null;
+    [Header("Renderers")]
+    [SerializeField] SpriteRenderer baseSpriteRenderer = null;
+    [SerializeField] SpriteRenderer obstacleSpriteRenderer = null;
 
-    private void Awake()
-    {
-        sr = GetComponent<SpriteRenderer>();
-    }
+    bool isSpeedBoost = false;
+    bool isTeleporter = false;
+    Vector2 moveObstacleDirection = new Vector2();
+    Tile teleporterPair = null;
+
+    CreateObjects objectCreator = null;
+    [SerializeField] Sprite foodSprite = null;
+    [SerializeField] Sprite defaultSprite;
+
 
     private void Start()
     {
+        objectCreator = GameObject.FindGameObjectWithTag("ObstacleCreator").GetComponent<CreateObjects>();
         SetTileType(tileType);
     }
 
+    #region Getters
     public TileType GetTileType()
     {
         return tileType;
+    }
+
+    public bool GetIsSpeedBoost()
+    {
+        return isSpeedBoost;
+    }
+
+    public bool GetIsTeleporter()
+    {
+        return isTeleporter;
+    }
+
+    public Vector2 GetTileIndex()
+    {
+        return indexOnBoard;
+    }
+
+    public Vector2 GetTilePosition()
+    {
+        return posOnBoard;
+    }
+
+    public Vector2 GetMoveableObstacleDirection()
+    {
+        return moveObstacleDirection;
+    }
+
+    public Tile GetTeleporterPair()
+    {
+        return teleporterPair;
+    }
+
+    public Color GetObstacleColor()
+    {
+        return obstacleSpriteRenderer.color;
+    }
+
+    #endregion
+
+    #region Setters
+    public void SetIsSpeedBoost(bool isBoost)
+    {
+        isSpeedBoost = isBoost;
+    }
+
+    public void SetIsTeleporter(bool isTeleport)
+    {
+        isTeleporter = isTeleport;
+    }
+
+    public void SetColor(Color newColor)
+    {
+        //baseSpriteRenderer.color = newColor;
+        obstacleSpriteRenderer.color = newColor;
+    }
+
+    public void SetTeleporterPair(Tile pairToThisTile)
+    {
+        teleporterPair = pairToThisTile;
+    }
+
+    public void SetMoveableObstacleDirection(Vector2 direction)
+    {
+        moveObstacleDirection = direction;
     }
 
     public void SetTilePosition(int xPos, int yPos)
@@ -47,16 +125,6 @@ public class Tile : MonoBehaviour
         indexOnBoard.y = col;
     }
 
-    public Vector2 GetTileIndex()
-    {
-        return indexOnBoard;
-    }
-
-    public Vector2 GetTilePosition()
-    {
-        return posOnBoard;
-    }
-
     /// <summary>
     /// Set the type of the tile from TileType enum. 
     /// </summary>
@@ -66,6 +134,7 @@ public class Tile : MonoBehaviour
         tileType = newType;
         ChangeColor();
     }
+    #endregion
 
     /// <summary>
     /// Changes the color of the tile based on the list it is in.
@@ -73,33 +142,54 @@ public class Tile : MonoBehaviour
     /// </summary>
     private void ChangeColor()
     {
-        if (sr == null) return;
+        if (baseSpriteRenderer == null) return;
 
         switch(tileType)
         {
             case TileType.neutral:
                 {
-                    sr.color = neutralColor;
+                    baseSpriteRenderer.color = neutralColor;
+                    baseSpriteRenderer.sprite = defaultSprite;
                     break;
                 }
             case TileType.food:
                 {
-                    sr.color = foodColor;
+                    baseSpriteRenderer.color = foodColor;
+                    baseSpriteRenderer.sprite = foodSprite;
                     break;
                 }
             case TileType.wall:
                 {
-                    sr.color = wallColor;
+                    baseSpriteRenderer.color = wallColor;
+                    baseSpriteRenderer.sprite = defaultSprite;
                     break;
                 }
             case TileType.critter:
                 {
-                    sr.color = critterColor;
+                    baseSpriteRenderer.color = critterColor;
+                    baseSpriteRenderer.sprite = defaultSprite;
                     break;
                 }
+            case TileType.teleporter:
+                {
+                    baseSpriteRenderer.color = Color.clear;
+                    obstacleSpriteRenderer.sprite = objectCreator.GetSpriteForTile(TileType.teleporter);
+                    break;
+                }
+            case TileType.speedBoost:
+                {
+                    baseSpriteRenderer.color = Color.clear;
+                    obstacleSpriteRenderer.sprite = objectCreator.GetSpriteForTile(TileType.speedBoost);
+                    break;
+                }
+            case TileType.movingObstacle:
+                baseSpriteRenderer.color = obstacleColor;
+                obstacleSpriteRenderer.sprite = objectCreator.GetSpriteForTile(TileType.movingObstacle);
+                break;
             default:
                 {
-                    sr.color = new Color(1,0,1,1);
+                    baseSpriteRenderer.color = new Color(1,0,1,1);
+                    obstacleSpriteRenderer.sprite = null;
                     break;
                 }
         }

@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: critterColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 782929981137674631, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+      propertyPath: baseSpriteRenderer
+      value: 
+      objectReference: {fileID: 6398670933598188711}
     - target: {fileID: 7297515287426722638, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -85,3 +89,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+--- !u!212 &6398670933598188711 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7661975268878177192, guid: a8914d9fd9634dc47b565c4e3d11e64c, type: 3}
+  m_PrefabInstance: {fileID: 3645778962626602767}
+  m_PrefabAsset: {fileID: 0}

@@ -147,6 +147,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1814507910}
     - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+      propertyPath: tile
+      value: 
+      objectReference: {fileID: 2749123373151199497, guid: ead003f40de8afe4bb3cb8761ab99a6b, type: 3}
+    - target: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
       propertyPath: critter
       value: 
       objectReference: {fileID: 2053942364}
@@ -231,6 +235,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &710118745 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 506948338186731602, guid: ef1d7372399e5c7489b8abc98d941dba, type: 3}
+  m_PrefabInstance: {fileID: 710118743}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83885d6005282f647b48788477486bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &819284190
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,11 +295,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2215
+      value: -7405
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.956221e-27
+      value: -1.9562208e-27
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -887,6 +902,14 @@ PrefabInstance:
       propertyPath: tileTracker
       value: 
       objectReference: {fileID: 710118744}
+    - target: {fileID: 1557460759446691866, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
+      propertyPath: obstacleCreator
+      value: 
+      objectReference: {fileID: 2142059140}
+    - target: {fileID: 1557460759446691866, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
+      propertyPath: spawnObjectEveryXFoodEaten
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
 --- !u!114 &2053942364 stripped
@@ -907,6 +930,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+      propertyPath: critter
+      value: 
+      objectReference: {fileID: 2053942364}
+    - target: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+      propertyPath: tileGrid
+      value: 
+      objectReference: {fileID: 710118745}
+    - target: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+      propertyPath: tileTracker
+      value: 
+      objectReference: {fileID: 710118744}
     - target: {fileID: 3266998607862884084, guid: 582cf495435594f46885d35549408113, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -970,5 +1005,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1163cc24a29b264ca8fa42c3c6af403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2142059140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+  m_PrefabInstance: {fileID: 2142059137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 511b280680b19894dbebe12c732c735a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
