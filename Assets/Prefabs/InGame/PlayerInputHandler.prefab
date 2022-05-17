@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8278184060540412755}
   - component: {fileID: 8278184060540412756}
   - component: {fileID: 8278184060540412754}
+  - component: {fileID: 1244724494242248873}
   m_Layer: 0
   m_Name: PlayerInputHandler
   m_TagString: Untagged
@@ -76,3 +77,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   critter: {fileID: 0}
+  gameLoop: {fileID: 0}
+--- !u!114 &1244724494242248873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278184060540412757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0aa5f277d272c4aa6d1dfd30b295ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

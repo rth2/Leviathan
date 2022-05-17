@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &669523509 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2905042364536561410, guid: b618fe1dd22ee0342b954bf23f7f3319, type: 3}
+  m_PrefabInstance: {fileID: 1103738069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &710118743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,11 +306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7405
+      value: -7630
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9562208e-27
+      value: -1.830003e-27
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -610,6 +621,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1244724494242248873, guid: 7f4780539e6834543967b1b1fc9c4666, type: 3}
+      propertyPath: critter
+      value: 
+      objectReference: {fileID: 2053942364}
     - target: {fileID: 8278184060540412754, guid: 7f4780539e6834543967b1b1fc9c4666, type: 3}
       propertyPath: critter
       value: 
@@ -668,6 +683,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f4780539e6834543967b1b1fc9c4666, type: 3}
+--- !u!114 &1590207904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1244724494242248873, guid: 7f4780539e6834543967b1b1fc9c4666, type: 3}
+  m_PrefabInstance: {fileID: 1590207903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d0aa5f277d272c4aa6d1dfd30b295ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1622953819
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +777,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6596319862554894484, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
+      propertyPath: critter
+      value: 
+      objectReference: {fileID: 2053942364}
+    - target: {fileID: 6596319862554894484, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
+      propertyPath: saveLoad
+      value: 
+      objectReference: {fileID: 1590207904}
+    - target: {fileID: 6596319862554894484, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 669523509}
     - target: {fileID: 6596319862554894484, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
       propertyPath: mainCanvas
       value: 

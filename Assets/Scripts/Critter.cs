@@ -59,6 +59,7 @@ public class Critter : MonoBehaviour
         }
     }
 
+    #region Getters
     public int GetLength()
     {
         return curLength;
@@ -69,6 +70,15 @@ public class Critter : MonoBehaviour
         return currentDirection;
     }
 
+    public int GetFoodEaten()
+    {
+        return foodEaten;
+    }
+
+    #endregion
+
+
+    #region Setters
     /// <summary>
     /// Sets the direction the critter should go. This is for PC (WASD and Arrow Keys).
     /// </summary>
@@ -143,5 +153,6 @@ public class Critter : MonoBehaviour
 
     }
 
+    #endregion
 
 }
