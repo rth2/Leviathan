@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TileList : MonoBehaviour
 {
-    private Tile.TileType tileType;
+    private Tile_Base.TileType tileType;
     private TileTracker tileTracker = null;
 
-    public List<Tile> tileList = new List<Tile>();
+    public List<Tile_Base> tileList = new List<Tile_Base>();
 
     /// <summary>
     /// Had to set the tile tracker manually as lists are made.
@@ -21,7 +22,7 @@ public class TileList : MonoBehaviour
     /// Sets what type of tiles list will accept.
     /// </summary>
     /// <param name="newTileType">Tile type to take; gotten from TileType enum.</param>
-    public void SetTileType(Tile.TileType newTileType)
+    public void SetTileType(Tile_Base.TileType newTileType)
     {
         tileType = newTileType;
     }
@@ -30,7 +31,7 @@ public class TileList : MonoBehaviour
     /// Gets the current type of tile this list takes.
     /// </summary>
     /// <returns>Current tile type of the list.</returns>
-    public Tile.TileType GetTileType()
+    public Tile_Base.TileType GetTileType()
     {
         return tileType;
     }
@@ -49,50 +50,57 @@ public class TileList : MonoBehaviour
     /// </summary>
     /// <param name="index"></param>
     /// <returns>Tile at index or null.</returns>
-    public Tile GetTile(int index)
+    public Tile_Base GetTile(int index)
     {
         if(index < 0 || index >= tileList.Count)
         {
-            Tile newTile = null;
+            Tile_Base newTile = null;
             return newTile;
         }
         return tileList[index];
+    }
+
+    public Tile_Base GetTileByRowCol(int row, int col)
+    {
+        for(int i = 0; i < tileList.Count; i++)
+        {   //found tile matching row and col
+            if ((int)tileList[i].GetTileIndex().x == row && (int)tileList[i].GetTileIndex().y == col)
+                return tileList[i];
+                
+        }
+        return null;
     }
 
     /// <summary>
     /// Adds tiles to the list. Critters are added to the front.
     /// </summary>
     /// <param name="tile">Tile to add.</param>
-    public void AddTileToList(Tile tile)
+    public void AddTileToList(Tile_Base tile)
     {
 
-        Tile.TileType type = tile.GetTileType();
+        Tile_Base.TileType type = tile.GetTileType();
 
         if(type != tileType) { return; }
 
-        if(type == Tile.TileType.critter || type == Tile.TileType.teleporter)
-        {
+        if(type == Tile_Base.TileType.critter || type == Tile_Base.TileType.teleporter)
             tileList.Insert(0, tile);
-        }
         else
-        {
             tileList.Add(tile);
-        }
 
-        if(type == Tile.TileType.teleporter)
+        if(type == Tile_Base.TileType.teleporter)
         {
-            tile.SetIsTeleporter(true);
+            Tile_Teleporter teleporterTile = tile.GetComponent<Tile_Teleporter>();
 
-            if (tile.GetTeleporterPair() != null)
+            if (teleporterTile.GetTeleporterPair() != null)
             {
-                tileList[0].SetColor(tile.GetTeleporterPair().GetObstacleColor());
+                tileList[0].SetColor(teleporterTile.GetTeleporterPair().GetColor());
                 return;
             }
 
             if(tileList.Count % 2 == 0)
             {
-                tile.SetTeleporterPair(tileList[1]);
-                tileList[1].SetTeleporterPair(tileList[0]);
+                teleporterTile.SetTeleporterPair(tileList[1].GetComponent<Tile_Teleporter>());
+                tileList[1].GetComponent<Tile_Teleporter>().SetTeleporterPair(tileList[0].GetComponent<Tile_Teleporter>());
 
                 Color color = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
                 tileList[0].SetColor(color);
@@ -100,44 +108,22 @@ public class TileList : MonoBehaviour
 
             }
         }
-
     }
 
     /// <summary>
     /// Takes tiles off of the list. Critters are removed from the back.
     /// </summary>
     /// <param name="tile">Tile to remove.</param>
-    public void RemoveTileFromList(Tile tile)
+    public void RemoveTileFromList(Tile_Base tile)
     {
-        Tile.TileType type = tile.GetTileType();
+        Tile_Base.TileType type = tile.GetTileType();
 
         if (type != tileType) { return; }
 
-        if(type == Tile.TileType.critter)
-        {
+        if(type == Tile_Base.TileType.critter)
             tileList.RemoveAt(tileList.Count - 1);
-        }
         else
-        {
             tileList.Remove(tile);
-        }
-    }
-
-    /// <summary>
-    /// Changes the Tile type in a list. Then adds it to the correct list and
-    /// removes it from the current list.
-    /// </summary>
-    /// <param name="index">Slot in list where we want to make change</param>
-    /// <param name="newType">Type to change to</param>
-    public void ChangeTileInList(int index, Tile.TileType newType)
-    {
-        if (index < 0 || index > tileList.Count) { return; }
-
-        if(newType == tileType) { return; }    //not changing tiles because they are the same type
-
-        tileList[index].SetTileType(newType);       //change to the new type
-        tileTracker.AddTileToList(tileList[index]); //add to list
-        tileList.Remove(tileList[index]);           //remove from this list
     }
 
 }

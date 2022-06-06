@@ -812,7 +812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26719.504
+      value: -33559.504
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -828,7 +828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -1e-45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -860,15 +860,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.4e-44
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -3e-45
+      value: 3e-45
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 479214666451675946, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -880,7 +880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214667124943626, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8e-44
+      value: -5.6e-44
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
@@ -969,6 +969,10 @@ PrefabInstance:
       propertyPath: obstacleCreator
       value: 
       objectReference: {fileID: 3266998608506960111}
+    - target: {fileID: 1557460759446691866, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
+      propertyPath: spawnObjectEveryXFoodEaten
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
 --- !u!1001 &3266998608506960110
@@ -982,6 +986,10 @@ PrefabInstance:
       propertyPath: tileTracker
       value: 
       objectReference: {fileID: 1973729163}
+    - target: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+      propertyPath: obstacleSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 685ecef39372bee418195f43e915face, type: 3}
     - target: {fileID: 3266998607862884084, guid: 582cf495435594f46885d35549408113, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1178,6 +1186,10 @@ PrefabInstance:
     - target: {fileID: 6596319862554894485, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
       propertyPath: gameSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596319862554894485, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
+      propertyPath: tickSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6596319862554894485, guid: 3d1a7604dacb6734cb803b9d1f054aa0, type: 3}
       propertyPath: inGameMenu

@@ -7,6 +7,17 @@ using Cinemachine;
 
 public class TileGrid : MonoBehaviour
 {
+    #region Attributes
+
+    [Header("Types of Tiles")]
+    [SerializeField] GameObject critterTile = null;
+    [SerializeField] GameObject foodTile = null;
+    [SerializeField] GameObject movingObstacleTile = null;
+    [SerializeField] GameObject neutralTile = null;
+    [SerializeField] GameObject speedBoostTile = null;
+    [SerializeField] GameObject teleporterTile = null;
+    [SerializeField] GameObject wallTile = null;
+
 
     [Header("Tile Grid Attributes")]
     [SerializeField] GameObject tile = null;
@@ -29,9 +40,11 @@ public class TileGrid : MonoBehaviour
 
     gameSettings settings = null;
 
+    #endregion
+
     private void Awake()
     {
-        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        settings = gameSettings.Instance;
     }
 
     private void Start()
@@ -105,7 +118,7 @@ public class TileGrid : MonoBehaviour
 
         for (int i = 0; i < critterLength; i++)
         {
-            ChangeTileType(startingRow - i, startingCol, Tile.TileType.critter);
+            ChangeTile(startingRow - i, startingCol, Tile_Base.TileType.critter);
         }
     }
 
@@ -116,12 +129,9 @@ public class TileGrid : MonoBehaviour
     /// <param name="row">Row of the tile you want. X coord.</param>
     /// <param name="col">Col of the tile you want. Y coord.</param>
     /// <returns>The requested Tile. Null if out of bounds.</returns>
-    public Tile GetTileFromTileGrid(int row, int col)
+    public Tile_Base GetTileFromTileGrid(int row, int col)
     {
-        Tile tile = null;
-        
-        //having issue where grid is 0,0 at corner but pos is 0,0 at center.
-        //need to set my actual row/col when tiles are first made and store those.
+        Tile_Base tile = null;
 
         if (tileGrid == null) {  return tile; }
         if(settings == null) { return tile; }
@@ -129,7 +139,7 @@ public class TileGrid : MonoBehaviour
         if (row < 0 || row >= settings.GetNumberOfRows() + boundaryTiles) {  return tile; }
         if (col < 0 || col >= settings.GetNumberOfCols() + boundaryTiles) {  return tile; }
 
-        tile = tileGrid[row, col].GetComponent<Tile>();
+        tile = tileGrid[row, col].GetComponent<Tile_Base>();
         return tile;
     }
 
@@ -145,37 +155,46 @@ public class TileGrid : MonoBehaviour
         int rowAmount = settings.GetNumberOfRows() + boundaryTiles;
         int colAmount = settings.GetNumberOfCols() + boundaryTiles;
         Vector3 tileToPlacePos = new Vector3();
+        float rowAmountX, colAmountY;
 
         tileGrid = new GameObject[rowAmount, colAmount];
+
+        if (rowAmount % 2 == 0)
+            rowAmountX = -((float)rowAmount * 0.5f);
+        else
+            rowAmountX = -((float)rowAmount * 0.5f) + tileOffset;
+
+        if (colAmount % 2 == 0)
+            colAmountY = ((float)colAmount * 0.5f);
+        else
+            colAmountY = ((float)colAmount * 0.5f) - tileOffset;
 
         for (int i = 0; i < rowAmount; i++)
         {
             for (int j = 0; j < colAmount; j++)
             {
-                tileToPlacePos.x = -((float)rowAmount * 0.5f) + tileOffset + i;
-                tileToPlacePos.y = ((float)colAmount * 0.5f) - tileOffset - j;
+                tileToPlacePos.x = rowAmountX + i;
+                tileToPlacePos.y = colAmountY - j;
 
-                tileGrid[i,j] = Instantiate(tile, tileToPlacePos, Quaternion.identity, tileCache.transform);
-
-                if (tileGrid[i,j].TryGetComponent<Tile>(out Tile componentTile))
-                {   //outmost tiles are border tiles / walls
-                    if (i == 0 || i == rowAmount - 1 || j == 0 || j == colAmount - 1)
-                    {
-                        componentTile.SetTileType(Tile.TileType.wall);
-                        tileTracker.AddTileToList(componentTile);
-                    }
-                    else
-                    {   //every other tile starts neutral
-                        componentTile.SetTileType(Tile.TileType.neutral);
-                        if(tileTracker != null)
-                        {
-                            tileTracker.AddTileToList(componentTile);
-                        }
-                    }
-
-                    componentTile.SetTilePosition(Mathf.FloorToInt(tileToPlacePos.x), Mathf.FloorToInt(tileToPlacePos.y));
-                    componentTile.SetTileIndex(i,j);
+                //border tiles / walls
+                if (i == 0 || i == rowAmount - 1 || j == 0 || j == colAmount - 1)
+                {
+                    tileGrid[i, j] = Instantiate(wallTile, tileToPlacePos, Quaternion.identity, tileCache.transform);
                 }
+                else
+                {   //every other tile starts neutral
+                    tileGrid[i, j] = Instantiate(neutralTile, tileToPlacePos, Quaternion.identity, tileCache.transform);
+
+                    if (tileTracker != null)
+                    {
+                        tileTracker.AddTileToList(tileGrid[i,j].GetComponent<Tile_Base>());
+                    }
+                }
+
+                Tile_Base tileBase = tileGrid[i, j].GetComponent<Tile_Base>();
+
+                tileBase.SetTilePosition(Mathf.FloorToInt(tileToPlacePos.x), Mathf.FloorToInt(tileToPlacePos.y));
+                tileBase.SetTileIndex(i, j);
             }
         }
     }
@@ -186,19 +205,104 @@ public class TileGrid : MonoBehaviour
     /// <param name="row">Row to check if we can change.</param>
     /// <param name="col">Column to check if we can change.</param>
     /// <param name="type">Request a change to this type.</param>
-    public void ChangeTileType(int row, int col, Tile.TileType type)
+    public void ChangeTile(int row, int col, Tile_Base.TileType type)
     {
         if(tileGrid == null) { return; }
 
-        Tile tileToChange = GetTileFromTileGrid(row, col);
+        Tile_Base tileToChange = GetTileFromTileGrid(row, col); //tile that needs to change
 
         if(tileToChange == null) { return; }
         if(tileToChange.GetTileType() == type) { return; }
         if(tileTracker == null) { return; }
 
-        tileTracker.RemoveTileFromList(tileToChange);
-        tileToChange.SetTileType(type);
-        tileTracker.AddTileToList(tileToChange);
+        Vector2 oldTilePosition = tileToChange.GetTilePosition();
+
+        //Remember Speedboost and teleporters
+        if (tileToChange.GetTileType() != Tile_Base.TileType.speedBoost && tileToChange.GetTileType() != Tile_Base.TileType.teleporter)
+        {
+            tileTracker.RemoveTileFromList(tileToChange);
+            Destroy(tileToChange.gameObject);
+        }
+        else
+        {   //turn off teleporter or speed boost object.
+            tileToChange.gameObject.SetActive(false);
+        }
+            
+        GameObject tileToAdd = null; //need a tile for this location on the grid.
+
+        if(type == Tile_Base.TileType.speedBoost)
+        {
+            if(tileTracker.GetTileList(Tile_Base.TileType.speedBoost).GetCount() > 0)
+            {
+                Tile_Base tile = tileTracker.GetTileList(Tile_Base.TileType.speedBoost).GetTileByRowCol(row, col);
+
+                if (tile != null)
+                    tileToAdd = tileTracker.GetTileList(Tile_Base.TileType.speedBoost).GetTileByRowCol(row, col).gameObject;
+            }
+        }
+        else if(type == Tile_Base.TileType.teleporter)
+        {
+            if (tileTracker.GetTileList(Tile_Base.TileType.teleporter).GetCount() > 0)
+            {
+                Tile_Base tile = tileTracker.GetTileList(Tile_Base.TileType.teleporter).GetTileByRowCol(row, col);
+
+                if (tile != null)
+                    tileToAdd = tileTracker.GetTileList(Tile_Base.TileType.teleporter).GetTileByRowCol(row, col).gameObject;
+            }
+        }
+
+        //did not find a matching tile in a list.
+        if (tileToAdd == null)
+        {
+            tileToAdd = CreateTileOfType(type);
+
+            Tile_Base tileBase = tileToAdd.GetComponent<Tile_Base>();
+            tileBase.SetTileIndex(row, col);
+            tileBase.SetTilePosition((int)oldTilePosition.x, (int)oldTilePosition.y);
+            tileToAdd.transform.parent = tileCache.transform;
+            tileToAdd.transform.position = oldTilePosition;
+            tileTracker.AddTileToList(tileBase);
+        }
+        else
+            tileToAdd.gameObject.SetActive(true);
+
+        tileGrid[row, col] = tileToAdd;
+    }
+
+
+    private GameObject CreateTileOfType(Tile_Base.TileType type)
+    {
+        GameObject newTile;
+
+        switch(type)
+        {
+            case Tile_Base.TileType.critter:
+                newTile = Instantiate(critterTile);
+                break;
+            case Tile_Base.TileType.food:
+                newTile = Instantiate(foodTile);
+                break;
+            case Tile_Base.TileType.movingObstacle:
+                newTile = Instantiate(movingObstacleTile);
+                break;
+            case Tile_Base.TileType.neutral:
+                newTile = Instantiate(neutralTile);
+                break;
+            case Tile_Base.TileType.speedBoost:
+                newTile = Instantiate(speedBoostTile);
+                break;
+            case Tile_Base.TileType.teleporter:
+                newTile = Instantiate(teleporterTile);
+                break;
+            case Tile_Base.TileType.wall:
+                newTile = Instantiate(wallTile);
+                break;
+            default:
+                newTile = Instantiate(neutralTile);
+                break;
+        }
+        newTile.transform.parent = tileCache.transform;
+        return newTile;
     }
 
 }

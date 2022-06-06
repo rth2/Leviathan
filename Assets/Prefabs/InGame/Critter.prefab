@@ -46,3 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curLength: 1
   currentDirection: {x: 0, y: 0}
+  requestedDirection: {x: 0, y: 0}
+  critterHeadSprite: {fileID: 21300000, guid: 42dc955d23a9f264aadf9b02f5e23ca2, type: 3}
+  critterBodySpriteArray:
+  - {fileID: 21300000, guid: dd9d55e9dde736f4a99b5c96ab0bb0e6, type: 3}
+  - {fileID: 21300000, guid: a92a38807f94cbd4fa27d34cd715e51d, type: 3}
+  tileTracker: {fileID: 0}
+  obstacleCreator: {fileID: 0}
+  spawnObjectEveryXFoodEaten: 3

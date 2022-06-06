@@ -33,7 +33,7 @@ public class SaveLoad : MonoBehaviour
 
     private void Start()
     {
-        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        settings = gameSettings.Instance;
     }
 
     public void OnSave()

@@ -306,11 +306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7630
+      value: -7945
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.830003e-27
+      value: 6.943538e-28
       objectReference: {fileID: 0}
     - target: {fileID: 479214666030735487, guid: 9cf6223c177c8d145962acd327314d2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -946,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 2142059140}
     - target: {fileID: 1557460759446691866, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
       propertyPath: spawnObjectEveryXFoodEaten
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52d75e07185372d4584b5a47528069ee, type: 3}
@@ -980,6 +980,10 @@ PrefabInstance:
       propertyPath: tileTracker
       value: 
       objectReference: {fileID: 710118744}
+    - target: {fileID: 2142059140, guid: 582cf495435594f46885d35549408113, type: 3}
+      propertyPath: obstacleSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 685ecef39372bee418195f43e915face, type: 3}
     - target: {fileID: 3266998607862884084, guid: 582cf495435594f46885d35549408113, type: 3}
       propertyPath: m_RootOrder
       value: 4

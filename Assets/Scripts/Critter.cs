@@ -10,6 +10,7 @@ public class Critter : MonoBehaviour
     [SerializeField] private Vector2 currentDirection = new Vector2();
     [SerializeField] private Vector2 requestedDirection = new Vector2();
 
+
     [Header("Dependencies")]
     [SerializeField] TileTracker tileTracker = null;
     [SerializeField] CreateObjects obstacleCreator = null;
@@ -27,7 +28,7 @@ public class Critter : MonoBehaviour
 
     private void Start()
     {
-        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        settings = gameSettings.Instance;
     }
 
     public void CalculateDirection()
@@ -109,7 +110,7 @@ public class Critter : MonoBehaviour
     {
         if (tileTracker == null) { return; }
 
-        Tile critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile.TileType.critter));
+        Tile_Base critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile_Base.TileType.critter));
 
         Vector2 critterHeadPos = new Vector2();
         critterHeadPos = critterHead.GetTilePosition();

@@ -19,27 +19,27 @@ public class CreateObjects : MonoBehaviour
     /// </summary>
     /// <param name="obstacle">Get sprite for this obstacle type.</param>
     /// <returns></returns>
-    public Sprite GetSpriteForTile(Tile.TileType obstacle)
+    public Sprite GetSpriteForTile(Tile_Base.TileType obstacle)
     {
         Sprite requestedSprite = null;
         switch(obstacle)
         {
-            case Tile.TileType.teleporter:
+            case Tile_Base.TileType.teleporter:
                 {
                     requestedSprite = obstacleSprites[0];
                     break;
                 }
-            case Tile.TileType.speedBoost:
+            case Tile_Base.TileType.speedBoost:
                 {
                     requestedSprite = obstacleSprites[1];
                     break;
                 }
-            case Tile.TileType.movingObstacle:
+            case Tile_Base.TileType.movingObstacle:
                 {
                     requestedSprite = obstacleSprites[2];
                     break;
                 }
-            case Tile.TileType.wall:
+            case Tile_Base.TileType.wall:
                 {
                     requestedSprite = obstacleSprites[3];
                     break;
@@ -50,39 +50,39 @@ public class CreateObjects : MonoBehaviour
         return requestedSprite;
     }
 
-    public void CreateObstacle(Tile.TileType obstacleType)
+    public void CreateObstacle(Tile_Base.TileType obstacleType)
     {
         tileTracker.PlaceObjectRandomlyOnGrid(obstacleType);
     }
 
-    private Tile.TileType ChooseRandomObstacleType()
+    private Tile_Base.TileType ChooseRandomObstacleType()
     {
-        Tile.TileType obstacleType = Tile.TileType.neutral;
+        Tile_Base.TileType obstacleType = Tile_Base.TileType.neutral;
 
         if (tileTracker == null) { return obstacleType; }
 
         int randomInt = UnityEngine.Random.Range(0,100);    //returns 0-99
 
         //we have room to make a pair of teleporters
-        if (tileTracker.GetTileList(Tile.TileType.neutral).GetCount() >= 2)
+        if (tileTracker.GetTileList(Tile_Base.TileType.neutral).GetCount() >= 2)
         {
             if (randomInt < 17)
-                obstacleType = Tile.TileType.teleporter;
+                obstacleType = Tile_Base.TileType.teleporter;
             else if (randomInt >= 17 && randomInt < 50)
-                obstacleType = Tile.TileType.movingObstacle;
+                obstacleType = Tile_Base.TileType.movingObstacle;
             else if (randomInt >= 50 && randomInt < 75)
-                obstacleType = Tile.TileType.speedBoost;
+                obstacleType = Tile_Base.TileType.speedBoost;
             else
-                obstacleType = Tile.TileType.wall;
+                obstacleType = Tile_Base.TileType.wall;
         }
         else  // no room for a teleporter pair
         {
             if (randomInt < 40)
-                obstacleType = Tile.TileType.movingObstacle;
+                obstacleType = Tile_Base.TileType.movingObstacle;
             else if (randomInt >= 40 && randomInt < 69)
-                obstacleType = Tile.TileType.speedBoost;
+                obstacleType = Tile_Base.TileType.speedBoost;
             else
-                obstacleType = Tile.TileType.wall;
+                obstacleType = Tile_Base.TileType.wall;
         }
 
         return obstacleType;
@@ -94,7 +94,7 @@ public class CreateObjects : MonoBehaviour
         if (critter == null) { return; }
         if(tileTracker == null) { return; }
 
-        Tile critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile.TileType.critter));
+        Tile_Base critterHead = tileTracker.GetTileFromList(0, tileTracker.GetTileList(Tile_Base.TileType.critter));
 
         Vector2 critterHeadIndex = critterHead.GetTileIndex();
         Vector2 directionToMove = critter.GetDirection();
@@ -102,13 +102,13 @@ public class CreateObjects : MonoBehaviour
         int tileInFrontOfCritterX = Mathf.FloorToInt(critterHeadIndex.x + directionToMove.x);
         int tileInFrontOfCritterY = Mathf.FloorToInt(critterHeadIndex.y + directionToMove.y);
 
-        Tile tileInFrontOfCritter = tileGrid.GetTileFromTileGrid(tileInFrontOfCritterX, tileInFrontOfCritterY);
+        Tile_Base tileInFrontOfCritter = tileGrid.GetTileFromTileGrid(tileInFrontOfCritterX, tileInFrontOfCritterY);
 
         if (tileInFrontOfCritter == null) { return; }
 
-        Tile.TileType obstacleType = Tile.TileType.neutral;
+        Tile_Base.TileType obstacleType = Tile_Base.TileType.neutral;
 
-        if(tileInFrontOfCritter.GetTileType() == Tile.TileType.neutral )
+        if(tileInFrontOfCritter.GetTileType() == Tile_Base.TileType.neutral )
         {
             tileTracker.RemoveTileFromList(tileInFrontOfCritter);
             obstacleType = ChooseRandomObstacleType();
@@ -121,7 +121,7 @@ public class CreateObjects : MonoBehaviour
             tileTracker.PlaceObjectRandomlyOnGrid(obstacleType);
         }
 
-        if (obstacleType == Tile.TileType.teleporter)
+        if (obstacleType == Tile_Base.TileType.teleporter)
             tileTracker.PlaceObjectRandomlyOnGrid(obstacleType);
 
     }

@@ -44,13 +44,13 @@ public class TileTracker : MonoBehaviour
         speedBoostList.SetTileTracker();
         movingObstacleList.SetTileTracker();
 
-        neutralList.SetTileType(Tile.TileType.neutral);
-        critterList.SetTileType(Tile.TileType.critter);
-        foodList.SetTileType(Tile.TileType.food);
-        wallList.SetTileType(Tile.TileType.wall);
-        teleporterList.SetTileType(Tile.TileType.teleporter);
-        speedBoostList.SetTileType(Tile.TileType.speedBoost);
-        movingObstacleList.SetTileType(Tile.TileType.movingObstacle);
+        neutralList.SetTileType(Tile_Base.TileType.neutral);
+        critterList.SetTileType(Tile_Base.TileType.critter);
+        foodList.SetTileType(Tile_Base.TileType.food);
+        wallList.SetTileType(Tile_Base.TileType.wall);
+        teleporterList.SetTileType(Tile_Base.TileType.teleporter);
+        speedBoostList.SetTileType(Tile_Base.TileType.speedBoost);
+        movingObstacleList.SetTileType(Tile_Base.TileType.movingObstacle);
     }
 
     private void Start()
@@ -59,29 +59,38 @@ public class TileTracker : MonoBehaviour
         gameLoop.OnNewTickCycle += MoveCritter;
         gameLoop.OnNewTickCycle += MoveMoveableObstacles;
 
-        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        settings = gameSettings.Instance;
         if(settings == null) { return; }
 
         audioHandler = settings.GetComponent<AudioHandler>();
     }
 
-    public TileList GetTileList(Tile.TileType listType)
+    public TileList GetTileList(Tile_Base.TileType listType)
     {
         TileList listToGet = null;
 
         switch(listType)
         {
-            case Tile.TileType.critter:
+            case Tile_Base.TileType.critter:
                 listToGet = critterList;
                 break;
-            case Tile.TileType.food:
+            case Tile_Base.TileType.food:
                 listToGet = foodList;
                 break;
-            case Tile.TileType.neutral:
+            case Tile_Base.TileType.neutral:
                 listToGet = neutralList;
                 break;
-            case Tile.TileType.wall:
+            case Tile_Base.TileType.wall:
                 listToGet = wallList;
+                break;
+            case Tile_Base.TileType.speedBoost:
+                listToGet = speedBoostList;
+                break;
+            case Tile_Base.TileType.teleporter:
+                listToGet = teleporterList;
+                break;
+            case Tile_Base.TileType.movingObstacle:
+                listToGet = movingObstacleList;
                 break;
             default:
                 break;
@@ -93,46 +102,46 @@ public class TileTracker : MonoBehaviour
     public void MoveMoveableObstacles()
     {
         if (tileGrid == null) { return; }
-
         if(movingObstacleList.GetCount() == 0) { return; }
 
-        for(int i =0; i < movingObstacleList.GetCount(); i++)
+        for (int i = 0; i < movingObstacleList.GetCount(); i++)
         {
-            Tile obstacleTile = GetTileFromList(i, movingObstacleList);
+            Tile_Base obstacleTile = GetTileFromList(i, movingObstacleList);
 
             Vector2 obstacleTileIndex = obstacleTile.GetTileIndex();
 
             float moveToTileX = obstacleTile.GetMoveableObstacleDirection().x + obstacleTileIndex.x;
             float moveToTileY = obstacleTile.GetMoveableObstacleDirection().y + obstacleTileIndex.y;
 
-            Tile moveToThisTile = tileGrid.GetTileFromTileGrid((int)moveToTileX, (int)moveToTileY);
+            Tile_Base moveToThisTile = tileGrid.GetTileFromTileGrid((int)moveToTileX, (int)moveToTileY);
 
             switch(moveToThisTile.GetTileType())
             {
-                case Tile.TileType.neutral:
-                    tileGrid.ChangeTileType((int)moveToThisTile.GetTileIndex().x, (int)moveToThisTile.GetTileIndex().y, Tile.TileType.movingObstacle);
+                case Tile_Base.TileType.neutral:
+                    tileGrid.ChangeTile((int)moveToThisTile.GetTileIndex().x, (int)moveToThisTile.GetTileIndex().y, Tile_Base.TileType.movingObstacle);
                     break;
-                case Tile.TileType.speedBoost:
-                    tileGrid.ChangeTileType((int)moveToThisTile.GetTileIndex().x, (int)moveToThisTile.GetTileIndex().y, Tile.TileType.movingObstacle);
+                case Tile_Base.TileType.speedBoost:
+                    tileGrid.ChangeTile((int)moveToThisTile.GetTileIndex().x, (int)moveToThisTile.GetTileIndex().y, Tile_Base.TileType.movingObstacle);
                     break;
                 default:  //anything else and this should break
                     break;
             }
 
             if (obstacleTile.GetIsSpeedBoost())
-                tileGrid.ChangeTileType((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile.TileType.speedBoost);
+                tileGrid.ChangeTile((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile_Base.TileType.speedBoost);
             else
-                tileGrid.ChangeTileType((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile.TileType.neutral);
+                tileGrid.ChangeTile((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile_Base.TileType.neutral);
         }
 
     }
 
     public void MoveCritter()
     {
+
         if(tileGrid == null) { return; }
         if(critter == null) { return; }
 
-        Tile critterHead = GetTileFromList(0, critterList);
+        Tile_Base critterHead = GetTileFromList(0, critterList);
 
         Vector2 critterHeadIndex = critterHead.GetTileIndex();
         critter.CalculateDirection();
@@ -141,21 +150,20 @@ public class TileTracker : MonoBehaviour
         int newCritterHeadIndexX = Mathf.FloorToInt(critterHeadIndex.x + directionToMove.x);
         int newCritterHeadIndexY = Mathf.FloorToInt(critterHeadIndex.y + directionToMove.y);
 
-        Tile newCritterHead = tileGrid.GetTileFromTileGrid(newCritterHeadIndexX, newCritterHeadIndexY);
+        Tile_Base newCritterHead = tileGrid.GetTileFromTileGrid(newCritterHeadIndexX, newCritterHeadIndexY);
         if (newCritterHead == null) { return; }
 
         switch(newCritterHead.GetTileType())
         {
-            case Tile.TileType.neutral:
+            case Tile_Base.TileType.neutral:
                 {
                     MoveCritterTail();
-
-                    tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+                    tileGrid.ChangeTile(newCritterHeadIndexX, newCritterHeadIndexY, Tile_Base.TileType.critter);
                     break;
                 }
-            case Tile.TileType.food:
+            case Tile_Base.TileType.food:
                 {
-                    tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+                    tileGrid.ChangeTile(newCritterHeadIndexX, newCritterHeadIndexY, Tile_Base.TileType.critter);
 
                     if (audioHandler)
                     {
@@ -179,18 +187,18 @@ public class TileTracker : MonoBehaviour
                     gameLoop.AddToSpeedFromFood(foodCreator.GetIncreaseSpeedAmount());
                     break;
                 }
-            case Tile.TileType.teleporter:
+            case Tile_Base.TileType.teleporter:
                 {
                     audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.teleporter, audioSource);
                     newCritterHead = newCritterHead.GetTeleporterPair();
 
                     MoveCritterTail();
 
-                    tileGrid.ChangeTileType((int)newCritterHead.GetTileIndex().x, (int)newCritterHead.GetTileIndex().y, Tile.TileType.critter);
+                    tileGrid.ChangeTile((int)newCritterHead.GetTileIndex().x, (int)newCritterHead.GetTileIndex().y, Tile_Base.TileType.critter);
                     MoveCritter();
                     break;
                 }
-            case Tile.TileType.speedBoost:
+            case Tile_Base.TileType.speedBoost:
                 {
                     if(gameLoop == null) { return; }
 
@@ -198,7 +206,7 @@ public class TileTracker : MonoBehaviour
 
                     MoveCritterTail();
 
-                    tileGrid.ChangeTileType(newCritterHeadIndexX, newCritterHeadIndexY, Tile.TileType.critter);
+                    tileGrid.ChangeTile(newCritterHeadIndexX, newCritterHeadIndexY, Tile_Base.TileType.critter);
 
                     //play a sound
                     gameLoop.AddToSpeedFromBoost(boostSpeedIncrease, boostDurationInSeconds);
@@ -214,50 +222,77 @@ public class TileTracker : MonoBehaviour
                     break;
                 }
         }
+
+        //make the critter sprites match
+        //critterList.SetCritterSprites(critterList);
+
     }
 
     private void MoveCritterTail()
     {
-        Tile oldCritterTail = GetTileFromList(critterList.GetCount() - 1, critterList);
+        Tile_Base oldCritterTail = GetTileFromList(critterList.GetCount() - 1, critterList);
         if (oldCritterTail == null) { return; }
         Vector2 critterTailIndex = oldCritterTail.GetTileIndex();
 
         int critterTailIndexX = Mathf.FloorToInt(critterTailIndex.x);
         int critterTailIndexY = Mathf.FloorToInt(critterTailIndex.y);
 
-        if (oldCritterTail.GetIsSpeedBoost())
-            tileGrid.ChangeTileType(critterTailIndexX, critterTailIndexY, Tile.TileType.speedBoost);
-        else if (oldCritterTail.GetIsTeleporter())
-            tileGrid.ChangeTileType(critterTailIndexX, critterTailIndexY, Tile.TileType.teleporter);
-        else
-            tileGrid.ChangeTileType(critterTailIndexX, critterTailIndexY, Tile.TileType.neutral);
+        
+        Vector2 oldIndex = oldCritterTail.GetTileIndex();
+
+        if(speedBoostList.GetCount() > 0)
+        {
+            for(int i = 0; i < speedBoostList.GetCount(); i++)
+            {
+                if(speedBoostList.GetTile(i).GetTileIndex() == oldIndex)
+                {
+                    Tile_Base tile = speedBoostList.GetTile(i);
+                    tileGrid.ChangeTile(critterTailIndexX, critterTailIndexY, Tile_Base.TileType.speedBoost);
+                    return;
+                }
+            }
+        }
+
+        if (teleporterList.GetCount() > 0)
+        {
+            for (int i = 0; i < teleporterList.GetCount(); i++)
+            {
+                if (teleporterList.GetTile(i).GetTileIndex() == oldIndex)
+                {
+                    Tile_Base tile = teleporterList.GetTile(i);
+                    tileGrid.ChangeTile(critterTailIndexX, critterTailIndexY, Tile_Base.TileType.teleporter);
+
+                    return;
+                }
+            }
+        }
+
+        tileGrid.ChangeTile(critterTailIndexX, critterTailIndexY, Tile_Base.TileType.neutral);
     }
 
-    public void AddTileToList( Tile tile)
+    public void AddTileToList( Tile_Base tile)
     {
         switch (tile.GetTileType()){
-            case Tile.TileType.neutral:
+            case Tile_Base.TileType.neutral:
                 neutralList.AddTileToList(tile);
                 break;
-            case Tile.TileType.critter:
+            case Tile_Base.TileType.critter:
                 critterList.AddTileToList(tile);
                 break;
-            case Tile.TileType.food:
+            case Tile_Base.TileType.food:
                 foodList.AddTileToList(tile);
                 break;
-            case Tile.TileType.wall:
+            case Tile_Base.TileType.wall:
                 wallList.AddTileToList(tile);
                 break;
-            case Tile.TileType.movingObstacle:
+            case Tile_Base.TileType.movingObstacle:
                 movingObstacleList.AddTileToList(tile);
-                if(critter == null) { return; }
-                tile.SetMoveableObstacleDirection(Vector2.right);
+                tile.GetComponent<Tile_MovingObstacle>().SetMoveableObstacleDirection(Vector2.right);
                 break;
-            case Tile.TileType.teleporter:
+            case Tile_Base.TileType.teleporter:
                 teleporterList.AddTileToList(tile);
                 break;
-            case Tile.TileType.speedBoost:
-                tile.SetIsSpeedBoost(true);
+            case Tile_Base.TileType.speedBoost:
                 speedBoostList.AddTileToList(tile);
                 break;
             default:
@@ -265,33 +300,33 @@ public class TileTracker : MonoBehaviour
         }
     }
 
-    public void RemoveTileFromList(Tile tile)
+    public void RemoveTileFromList(Tile_Base tile)
     {
         switch (tile.GetTileType())
         {
-            case Tile.TileType.neutral:
+            case Tile_Base.TileType.neutral:
                 neutralList.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.critter:
+            case Tile_Base.TileType.critter:
                 critterList.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.food:
+            case Tile_Base.TileType.food:
                 foodList.RemoveTileFromList(tile);
                 if (neutralList.GetCount() == 0 && foodList.GetCount() == 0)
                 {
                     sceneHandler.HandleVictory();
                 }
                 break;
-            case Tile.TileType.wall:
+            case Tile_Base.TileType.wall:
                 wallList.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.movingObstacle:
+            case Tile_Base.TileType.movingObstacle:
                 movingObstacleList.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.teleporter:
+            case Tile_Base.TileType.teleporter:
                 teleporterList.RemoveTileFromList(tile);
                 break;
-            case Tile.TileType.speedBoost:
+            case Tile_Base.TileType.speedBoost:
                 speedBoostList.RemoveTileFromList(tile);
                 break;
             default:
@@ -304,20 +339,22 @@ public class TileTracker : MonoBehaviour
     /// Does this by checking the neutral list, and changing a random tile.
     /// </summary>
     /// <param name="typeToPlace">Type of object I want on the grid.</param>
-    public void PlaceObjectRandomlyOnGrid(Tile.TileType typeToPlace)
+    public void PlaceObjectRandomlyOnGrid(Tile_Base.TileType typeToPlace)
     {
+        
         if(neutralList.GetCount() == 0) { return; } //no free spaces
+        if(tileGrid == null) { return; }
 
         int min = 0;
         int max = neutralList.GetCount();
         int randomInt = UnityEngine.Random.Range(min, max);
 
-        Tile newTile = GetTileFromList(randomInt, neutralList);
+        Tile_Base newTile = GetTileFromList(randomInt, neutralList);
 
-        neutralList.ChangeTileInList(randomInt, typeToPlace);
+        tileGrid.ChangeTile((int)newTile.GetTileIndex().x, (int)newTile.GetTileIndex().y, typeToPlace);
     }
 
-    public Tile GetTileFromList( int index, TileList tileList)
+    public Tile_Base GetTileFromList( int index, TileList tileList)
     {
         //getTile checks for in bounds.
         return tileList.GetTile(index);

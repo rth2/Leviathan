@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2bc082d3c116041938aa651f521e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileGrid: {fileID: 506948338186731602}
+  boostSpeedIncrease: 5
+  boostDurationInSeconds: 2
   gameLoop: {fileID: 0}
   critter: {fileID: 0}
   sceneHandler: {fileID: 0}
+  tileGrid: {fileID: 506948338186731602}
+  foodCreator: {fileID: 0}
   audioSource: {fileID: 832550170851598312}
 --- !u!82 &832550170851598312
 AudioSource:
@@ -192,9 +195,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83885d6005282f647b48788477486bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  critterTile: {fileID: 3459755246373981934, guid: c987f1acea1834940b1b1203d004fd75, type: 3}
+  foodTile: {fileID: 341306851463272205, guid: 9ab99f788d8d0bd48918faa55fa6efc0, type: 3}
+  movingObstacleTile: {fileID: 1027390275057220618, guid: 37170d0bb9b444240a5815138f9e30b0, type: 3}
+  neutralTile: {fileID: 2303826312903363553, guid: a56b3e60ebbfc744f81f251d8ba2daa3, type: 3}
+  speedBoostTile: {fileID: 1839836943803480512, guid: 097645b15c135e24e961ea2f2ca392b6, type: 3}
+  teleporterTile: {fileID: 3107468378704602954, guid: 97e992664870fef4a80331deabde1704, type: 3}
+  wallTile: {fileID: 5599958730815623828, guid: 1182fcafdc9fa6541926cc8a93f7ed9d, type: 3}
   tile: {fileID: 4815888597176206965, guid: 2c6ce4b5b9fc4dc41b2c287b2a41a2a8, type: 3}
-  maxRows: 25
-  maxCols: 19
   tileCache: {fileID: 5681548364977342076}
   tileTracker: {fileID: 1973729163}
   critter: {fileID: 0}

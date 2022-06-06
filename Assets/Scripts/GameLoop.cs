@@ -32,7 +32,7 @@ public class GameLoop : MonoBehaviour
 
     private void Start()
     {
-        settings = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<gameSettings>();
+        settings = gameSettings.Instance;
         currentTick = tickSpeed;
 
         SetStartingSpeed();
