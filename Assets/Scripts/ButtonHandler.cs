@@ -9,6 +9,7 @@ using System;
 public class ButtonHandler : MonoBehaviour
 {
     [SerializeField] GameLoop gameLoop = null;
+    [SerializeField] Button startSelected = null;
 
     [Header("Dropdowns")]
     [SerializeField] TMP_Dropdown musicDropdown = null;
@@ -28,7 +29,6 @@ public class ButtonHandler : MonoBehaviour
 
     AudioHandler audioHandler = null;
     gameSettings settings = null;
-    
 
     private void Start()
     {
@@ -37,6 +37,8 @@ public class ButtonHandler : MonoBehaviour
         settings = gameSettingsObject.GetComponent<gameSettings>();
         if (settings == null) { return; }
         audioHandler = settings.GetComponent<AudioHandler>();
+
+        startSelected.Select();
 
         ShowCurrentDropdownOptions();
         ShowCurrentSliderValue();

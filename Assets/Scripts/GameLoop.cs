@@ -25,8 +25,11 @@ public class GameLoop : MonoBehaviour
     private bool isPlaying = true;
     private float speedFromFood = 0f;
     private float speedFromBoost = 0f;
+    private bool setButton = false;
 
     [SerializeField] private float augmentedSpeed = 0f;
+
+    [SerializeField] private SceneHandler sceneHandler = null;
 
     public event Action OnNewTickCycle;
 
@@ -52,6 +55,11 @@ public class GameLoop : MonoBehaviour
                 OnNewTickCycle?.Invoke();   //tell whatever cares that a new cycle has begun
                 currentTick = tickSpeed;
             }
+        }
+        else if(setButton)
+        {
+            sceneHandler.SetSelected();
+            setButton = false;
         }
 
     }
@@ -79,6 +87,8 @@ public class GameLoop : MonoBehaviour
     public void SetIsGamePlaying(bool state)
     {
         isPlaying = state;
+
+        setButton = true;
     }
 
     public bool GetIsGamePlaying()
