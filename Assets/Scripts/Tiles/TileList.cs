@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileList : MonoBehaviour
+public class TileList// : MonoBehaviour
 {
     private Tile_Base.TileType tileType;
     private TileTracker tileTracker = null;
@@ -125,6 +125,5 @@ public class TileList : MonoBehaviour
         else
             tileList.Remove(tile);
     }
-
 
 }

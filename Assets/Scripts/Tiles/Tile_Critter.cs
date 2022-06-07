@@ -20,7 +20,7 @@ public class Tile_Critter : Tile_Base
         west = 3
     };
 
-    Direction direction;
+    [SerializeField] public Direction direction;
 
 
     protected override void Start()
@@ -28,9 +28,9 @@ public class Tile_Critter : Tile_Base
         critter = GameObject.FindGameObjectWithTag("Player").GetComponent<Critter>();
 
         if(critter == null) { return; }
+
         SetSpriteDirection();
         SetSpriteHead();
-
     }
 
     private void SetSpriteDirection()
@@ -53,11 +53,64 @@ public class Tile_Critter : Tile_Base
             sr.sprite = body01SpriteArray[(int)direction];
         else
             sr.sprite = body02SpriteArray[(int)direction];
+
+        SetBend();
     }
 
     public void SetSpriteHead()
     {
         sr.sprite = headSpriteArray[(int)direction];
+    }
+
+    private void SetBend()
+    {
+        Direction newHeadDirection;
+        Vector2 critterDirection = critter.GetDirection();
+
+        if (critterDirection.x == 1)
+            newHeadDirection = Direction.east;
+        else if (critterDirection.x == -1)
+            newHeadDirection = Direction.west;
+        else if (critterDirection.y == 1)
+            newHeadDirection = Direction.south;
+        else
+            newHeadDirection = Direction.north;
+
+        //heading the same direction; no bend.
+        if (direction == newHeadDirection) { return; }
+
+        //for bend sprite array
+        //0 is rightUp, 1 is rightDown, 2 is leftUp, 3 is leftDown
+        switch (direction)
+        {
+            case Direction.north:
+                if (newHeadDirection == Direction.east)
+                    sr.sprite = bodyBendsArray[3];
+                else if (newHeadDirection == Direction.west)
+                    sr.sprite = bodyBendsArray[1];
+                break;
+            case Direction.south:
+                if (newHeadDirection == Direction.east)
+                    sr.sprite = bodyBendsArray[2];
+                else if (newHeadDirection == Direction.west)
+                    sr.sprite = bodyBendsArray[0];
+                break;
+            case Direction.east:
+                if (newHeadDirection == Direction.north)
+                    sr.sprite = bodyBendsArray[0];
+                else if (newHeadDirection == Direction.south)
+                    sr.sprite = bodyBendsArray[1];
+                break;
+            case Direction.west:
+                if (newHeadDirection == Direction.north)
+                    sr.sprite = bodyBendsArray[2];
+                else if (newHeadDirection == Direction.south)
+                    sr.sprite = bodyBendsArray[3];
+                break;
+            default:
+                break;
+        }
+
     }
 
 }

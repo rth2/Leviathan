@@ -18,7 +18,6 @@ public static class SaveSystem
 
     public static void Save(string saveString, string saveFileName)
     {
-        Debug.Log($"name to save {saveFileName}");
         File.WriteAllText(SAVE_FOLDER + saveFileName + ".txt", saveString);
     }
 

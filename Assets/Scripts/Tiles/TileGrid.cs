@@ -20,7 +20,6 @@ public class TileGrid : MonoBehaviour
 
 
     [Header("Tile Grid Attributes")]
-    [SerializeField] GameObject tile = null;
     [SerializeField] GameObject tileCache = null;
     [SerializeField] TileTracker tileTracker = null;
 
@@ -83,11 +82,6 @@ public class TileGrid : MonoBehaviour
     /// </summary>
     private void SetGameCameraBoundaries()
     {
-        //cinemachineTargetGroup.AddMember(leftBoundary.transform, 1, 0);
-        //cinemachineTargetGroup.AddMember(rightBoundary.transform, 1, 0);
-        //cinemachineTargetGroup.AddMember(topBoundary.transform, 1, 0);
-        //cinemachineTargetGroup.AddMember(botBoundary.transform, 1, 0);
-
         cinemachineTargetGroup.m_Targets[0].target = leftBoundary.transform;
         cinemachineTargetGroup.m_Targets[1].target = rightBoundary.transform;
         cinemachineTargetGroup.m_Targets[2].target = topBoundary.transform;

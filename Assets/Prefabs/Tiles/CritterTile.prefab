@@ -64,6 +64,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e5a7dc419a72614cbbfca747a72a9fd, type: 3}
   - {fileID: 21300000, guid: 9d6e777f99e8ee140bb37092fe1b7524, type: 3}
   - {fileID: 21300000, guid: 8e5a7dc419a72614cbbfca747a72a9fd, type: 3}
+  bodyBendsArray:
+  - {fileID: 21300000, guid: f2beda01521b6d544b552f7340b9c15c, type: 3}
+  - {fileID: 21300000, guid: 5366fb454e31145488740828e0edea27, type: 3}
+  - {fileID: 21300000, guid: 47fa21e8c574d4940a001e4b61cfb3e7, type: 3}
+  - {fileID: 21300000, guid: e25247dbfa15f1444a7a11900cd43845, type: 3}
 --- !u!212 &6711193227154697247
 SpriteRenderer:
   m_ObjectHideFlags: 0

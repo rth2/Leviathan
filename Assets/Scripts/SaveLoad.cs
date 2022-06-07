@@ -60,8 +60,6 @@ public class SaveLoad : MonoBehaviour
 
         if (loadedString != null)
             loadedData = JsonUtility.FromJson<SaveData>(loadedString);
-        else
-            Debug.Log($"No save file");
 
         return loadedData;
     }
