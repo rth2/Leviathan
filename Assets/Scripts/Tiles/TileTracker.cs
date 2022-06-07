@@ -23,6 +23,8 @@ public class TileTracker : MonoBehaviour
     AudioHandler audioHandler = null;
     TileList neutralList, critterList, foodList, wallList, teleporterList, speedBoostList, movingObstacleList;
 
+    bool useBody01 = true;
+
     /// <summary>
     /// Sets up the different lists of tiles.
     /// </summary>
@@ -127,9 +129,21 @@ public class TileTracker : MonoBehaviour
                     break;
             }
 
-            if (obstacleTile.GetIsSpeedBoost())
-                tileGrid.ChangeTile((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile_Base.TileType.speedBoost);
-            else
+            //should the spot i'm leaving actually be a speed boost tile
+            if (speedBoostList.GetCount() > 0)
+            {
+                for (int j = 0; j < speedBoostList.GetCount(); j++)
+                {
+                    Vector2 oldVector = new Vector2(obstacleTileIndex.x, obstacleTileIndex.y);
+                    if (speedBoostList.GetTile(j).GetTileIndex() == oldVector)
+                    {
+                        Tile_Base tile = speedBoostList.GetTile(j);
+                        tileGrid.ChangeTile((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile_Base.TileType.speedBoost);
+                        return;
+                    }
+                }
+            }
+
                 tileGrid.ChangeTile((int)obstacleTileIndex.x, (int)obstacleTileIndex.y, Tile_Base.TileType.neutral);
         }
 
@@ -195,7 +209,7 @@ public class TileTracker : MonoBehaviour
                     MoveCritterTail();
 
                     tileGrid.ChangeTile((int)newCritterHead.GetTileIndex().x, (int)newCritterHead.GetTileIndex().y, Tile_Base.TileType.critter);
-                    MoveCritter();
+                    //MoveCritter();
                     break;
                 }
             case Tile_Base.TileType.speedBoost:
@@ -222,10 +236,17 @@ public class TileTracker : MonoBehaviour
                     break;
                 }
         }
+    }
 
-        //make the critter sprites match
-        //critterList.SetCritterSprites(critterList);
+    private void SetCritterSprites()
+    {
+        if(critterList.GetCount() == 0) { return; }
 
+        if(critterList.GetCount() > 1)
+        {
+            critterList.GetTile(1).GetComponent<Tile_Critter>().SetBodySprite(useBody01);
+            useBody01 = !useBody01;
+        }
     }
 
     private void MoveCritterTail()
@@ -237,10 +258,9 @@ public class TileTracker : MonoBehaviour
         int critterTailIndexX = Mathf.FloorToInt(critterTailIndex.x);
         int critterTailIndexY = Mathf.FloorToInt(critterTailIndex.y);
 
-        
         Vector2 oldIndex = oldCritterTail.GetTileIndex();
 
-        if(speedBoostList.GetCount() > 0)
+        if (speedBoostList.GetCount() > 0)
         {
             for(int i = 0; i < speedBoostList.GetCount(); i++)
             {
@@ -252,7 +272,6 @@ public class TileTracker : MonoBehaviour
                 }
             }
         }
-
         if (teleporterList.GetCount() > 0)
         {
             for (int i = 0; i < teleporterList.GetCount(); i++)
@@ -261,12 +280,10 @@ public class TileTracker : MonoBehaviour
                 {
                     Tile_Base tile = teleporterList.GetTile(i);
                     tileGrid.ChangeTile(critterTailIndexX, critterTailIndexY, Tile_Base.TileType.teleporter);
-
                     return;
                 }
             }
         }
-
         tileGrid.ChangeTile(critterTailIndexX, critterTailIndexY, Tile_Base.TileType.neutral);
     }
 
@@ -278,6 +295,7 @@ public class TileTracker : MonoBehaviour
                 break;
             case Tile_Base.TileType.critter:
                 critterList.AddTileToList(tile);
+                SetCritterSprites();
                 break;
             case Tile_Base.TileType.food:
                 foodList.AddTileToList(tile);

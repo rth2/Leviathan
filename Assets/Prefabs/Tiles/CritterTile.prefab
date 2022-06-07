@@ -49,10 +49,21 @@ MonoBehaviour:
   posOnBoard: {x: 0, y: 0}
   indexOnBoard: {x: 0, y: 0}
   sr: {fileID: 6711193227154697247}
-  critterSpriteArray:
-  - {fileID: 21300000, guid: 42dc955d23a9f264aadf9b02f5e23ca2, type: 3}
-  - {fileID: 21300000, guid: dd9d55e9dde736f4a99b5c96ab0bb0e6, type: 3}
-  - {fileID: 21300000, guid: a92a38807f94cbd4fa27d34cd715e51d, type: 3}
+  headSpriteArray:
+  - {fileID: 21300000, guid: 09017e512963a5047b58134ba89eec0a, type: 3}
+  - {fileID: 21300000, guid: 0d6207fea2242a646bd70392b71697eb, type: 3}
+  - {fileID: 21300000, guid: f3612435d07826642a8e26656738f742, type: 3}
+  - {fileID: 21300000, guid: 96c6fdb28bfc7934d92a0e9cf9187e3a, type: 3}
+  body01SpriteArray:
+  - {fileID: 21300000, guid: 97402ee668d3e834db7d6d0d7c8d7842, type: 3}
+  - {fileID: 21300000, guid: 4f75886c9d2be6a40a7cb7a80fe5be08, type: 3}
+  - {fileID: 21300000, guid: 97402ee668d3e834db7d6d0d7c8d7842, type: 3}
+  - {fileID: 21300000, guid: 4f75886c9d2be6a40a7cb7a80fe5be08, type: 3}
+  body02SpriteArray:
+  - {fileID: 21300000, guid: 9d6e777f99e8ee140bb37092fe1b7524, type: 3}
+  - {fileID: 21300000, guid: 8e5a7dc419a72614cbbfca747a72a9fd, type: 3}
+  - {fileID: 21300000, guid: 9d6e777f99e8ee140bb37092fe1b7524, type: 3}
+  - {fileID: 21300000, guid: 8e5a7dc419a72614cbbfca747a72a9fd, type: 3}
 --- !u!212 &6711193227154697247
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94,12 +105,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 42dc955d23a9f264aadf9b02f5e23ca2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3612435d07826642a8e26656738f742, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
