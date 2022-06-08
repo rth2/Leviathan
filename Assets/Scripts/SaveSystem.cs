@@ -5,15 +5,12 @@ using System.IO;
 
 public static class SaveSystem
 {
-    private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
-
+    private static readonly string SAVE_FOLDER = Application.persistentDataPath + "/Saves/";
 
     public static void Init()
     {
         if (!Directory.Exists(SAVE_FOLDER))
-        {
             Directory.CreateDirectory(SAVE_FOLDER);
-        }
     }
 
     public static void Save(string saveString, string saveFileName)
@@ -32,10 +29,6 @@ public static class SaveSystem
             return saveString;
         }
         else
-        {
-            Debug.Log($"No save file found.");
             return null;
-        }
-
     }
 }

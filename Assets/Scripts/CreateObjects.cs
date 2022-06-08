@@ -61,8 +61,6 @@ public class CreateObjects : MonoBehaviour
 
         if (tileTracker == null) { return obstacleType; }
 
-
-
         int randomInt = UnityEngine.Random.Range(0,100);    //returns 0-99
 
         //we have room to make a pair of teleporters

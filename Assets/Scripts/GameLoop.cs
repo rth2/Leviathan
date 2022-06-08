@@ -61,7 +61,6 @@ public class GameLoop : MonoBehaviour
             sceneHandler.SetSelected();
             setButton = false;
         }
-
     }
 
     public void SetStartingSpeed()
@@ -149,4 +148,16 @@ public class GameLoop : MonoBehaviour
         isPlaying = false;
         inGameMenu.SetActive(true);
     }
+
+
+    private void OnApplicationFocus(bool focus)
+    {
+        HandlePause();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        HandlePause();
+    }
+
 }

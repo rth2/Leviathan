@@ -151,7 +151,6 @@ public class TileTracker : MonoBehaviour
 
     public void MoveCritter()
     {
-
         if(tileGrid == null) { return; }
         if(critter == null) { return; }
 
@@ -203,13 +202,24 @@ public class TileTracker : MonoBehaviour
                 }
             case Tile_Base.TileType.teleporter:
                 {
-                    audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.teleporter, audioSource);
+                    
                     newCritterHead = newCritterHead.GetTeleporterPair();
+
+                    if(newCritterHead.gameObject.activeSelf == false)
+                    {
+                        //double using a teleporter. Die.
+                        if (audioHandler)
+                            audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.critterDie, audioSource);
+
+                        sceneHandler.HandleDeath();
+                        return;
+                    }
+
+                    audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.teleporter, audioSource);
 
                     MoveCritterTail();
 
                     tileGrid.ChangeTile((int)newCritterHead.GetTileIndex().x, (int)newCritterHead.GetTileIndex().y, Tile_Base.TileType.critter);
-                    //MoveCritter();
                     break;
                 }
             case Tile_Base.TileType.speedBoost:
@@ -229,9 +239,8 @@ public class TileTracker : MonoBehaviour
             default:    //the rest are walls, critter, or moving obstacles
                 {
                     if (audioHandler)
-                    {
                         audioHandler.PlaySoundFX(AudioHandler.AUDIO_FX.critterDie, audioSource);
-                    }
+
                     sceneHandler.HandleDeath();
                     break;
                 }

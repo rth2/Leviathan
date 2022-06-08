@@ -11,7 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField] GameLoop gameLoop = null;
 
     Vector2 rawInput = new Vector2();
+
+#if UNITY_ANDROID || UNITY_IOS
     Vector3 sanitizedInput = new Vector3();
+#endif
+
     Camera mainCamera = null;
 
 
@@ -45,7 +49,7 @@ public class Player : MonoBehaviour
     }
 #endif
 
-//#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
     void OnMoveTouch(InputValue value)
     {
         if (critter == null) { return; }
@@ -65,7 +69,7 @@ public class Player : MonoBehaviour
 
         critter.SetDirectionTouch(new Vector2(sanitizedInput.x, sanitizedInput.y));
     }
-//#endif
+#endif
     private void OnPause()
     {
         if(gameLoop == null) { return; }
