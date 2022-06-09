@@ -62,7 +62,7 @@ MonoBehaviour:
   obstacleSprites:
   - {fileID: 21300000, guid: a27b8981e837a00409fb379ca9edf61c, type: 3}
   - {fileID: 21300000, guid: f69b433422f96d54fb67249e94d01d92, type: 3}
-  - {fileID: 21300000, guid: 68b4b3d198a19f9439a39e3e49e65bc6, type: 3}
+  - {fileID: 21300000, guid: 685ecef39372bee418195f43e915face, type: 3}
   - {fileID: 21300000, guid: dfd990b49cbc465499de9f212656ae6a, type: 3}
   tileTracker: {fileID: 0}
   tileGrid: {fileID: 0}

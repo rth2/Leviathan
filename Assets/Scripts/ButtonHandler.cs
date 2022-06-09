@@ -47,7 +47,7 @@ public class ButtonHandler : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene((int)SceneHandler.LEVELS.mainMenu);
     }
 
     public void OnCritterGameStart()
@@ -55,7 +55,7 @@ public class ButtonHandler : MonoBehaviour
         if(settings == null) { return; }
 
         settings.SetInCritterGameMode(true);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int)SceneHandler.LEVELS.critter);
     }
 
     public void ClassicGameStart()
@@ -63,7 +63,7 @@ public class ButtonHandler : MonoBehaviour
         if (settings == null) { return; }
 
         settings.SetInCritterGameMode(false);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene((int)SceneHandler.LEVELS.classic);
     }
 
     public void Exit()

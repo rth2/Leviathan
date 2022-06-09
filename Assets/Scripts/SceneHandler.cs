@@ -7,6 +7,13 @@ using TMPro;
 
 public class SceneHandler : MonoBehaviour
 {
+    public enum LEVELS
+    {
+        splashScreen = 0,
+        mainMenu = 1,
+        critter = 2,
+        classic = 3
+    }
 
     [SerializeField] GameLoop gameLoop = null;
     [SerializeField] GameObject mainCanvas = null;
