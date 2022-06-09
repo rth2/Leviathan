@@ -9,6 +9,7 @@ public class FadeImage : MonoBehaviour
 
     [SerializeField] GameObject blackOutSquare;
     float duration = 0.8f;
+    float timeOnScreen = 1f;
 
     private void Start()
     {
@@ -40,7 +41,7 @@ public class FadeImage : MonoBehaviour
                 blackOutSquare.GetComponent<Image>().color = objectColor;
                 yield return null;
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(timeOnScreen);
             StartCoroutine(FadeBlackOutSquare(true, duration));
             
         }
