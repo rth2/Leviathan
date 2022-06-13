@@ -30,6 +30,8 @@ public class ButtonHandler : MonoBehaviour
     AudioHandler audioHandler = null;
     gameSettings settings = null;
 
+    const string WEBSITE_PRIVACY_POLICY = "https://www.robertheslin.com/game-privacy-policies";
+
     private void Start()
     {
         GameObject gameSettingsObject = GameObject.FindGameObjectWithTag("GameSettings");
@@ -64,6 +66,11 @@ public class ButtonHandler : MonoBehaviour
 
         settings.SetInCritterGameMode(false);
         SceneManager.LoadScene((int)SceneHandler.LEVELS.classic);
+    }
+
+    public void OpenWebsitePrivacyPolicy()
+    {
+        Application.OpenURL(WEBSITE_PRIVACY_POLICY);
     }
 
     public void Exit()
