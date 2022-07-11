@@ -3,7 +3,7 @@ Created by Robert Heslin.
 web -- https://www.robertheslin.com/
 linkedIn -- https://www.linkedin.com/in/robertheslin/
 itch.io -- https://rth2.itch.io/critter
-
+Google Play Store -- https://play.google.com/store/apps/details?id=com.CracklingLeafGames.Critter
 
 Hello and thank you for downloading Critter!
 
